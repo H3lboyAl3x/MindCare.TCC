@@ -98,89 +98,14 @@ export default function TelaInicio01({ navigation }) {
 
         {/* rodape */}
         <View style={stylesweb.footer}>
-          <Image source={{ uri: image1Url }} style={[stylesweb.mainImage, {alignSelf: 'flex-start'}]} />
-          <View style={{alignSelf: 'flex-end', marginLeft: 10}}>
-            <Text style={[stylesweb.contactText, { fontSize: 12, color: '#fff'}]}>📞 Telefone: 928824001</Text>
-            <Text style={[stylesweb.contactText, { fontSize: 12, color: '#fff'}]}>✉️ Email: rda.geral.2021@gmail.com</Text>
-            <Text style={[stylesweb.contactText, { fontSize: 12, color: '#fff'}]} onPress={() => Linking.openURL('https://www.google.com/maps/place/Resid%C3%AAncias+de+Talatona/@-8.9190624,13.2036315,17z/data=!3m1!4b1!4m6!3m5!1s0x1a51f510af9aaaab:0x884c094be609522f!8m2!3d-8.9190624!4d13.2036315!16s%2Fg%2F11c60k11v2?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D')}>Angola - Luanda - Talatona</Text>
-          </View>
+          <Text style={[stylesweb.contactText, { fontSize: 12, color: '#fff'}]}>📞 Telefone: 928824001</Text>
+          <Text style={[stylesweb.contactText, { fontSize: 12, color: '#fff'}]}>✉️ Email: rda.geral.2021@gmail.com</Text>
+          <Text style={[stylesweb.contactText, { fontSize: 12, color: '#fff'}]} onPress={() => Linking.openURL('https://www.google.com/maps/place/Resid%C3%AAncias+de+Talatona/@-8.9190624,13.2036315,17z/data=!3m1!4b1!4m6!3m5!1s0x1a51f510af9aaaab:0x884c094be609522f!8m2!3d-8.9190624!4d13.2036315!16s%2Fg%2F11c60k11v2?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D')}>Angola - Luanda - Talatona</Text>
         </View>
       </ScrollView>
     );
   }
-
-  return (
-    <SafeAreaView style={stylesMobile.safeArea}>
-      <KeyboardAvoidingView behavior="padding" style={stylesMobile.container}>
-        <View style={stylesMobile.inner}>
-          <Image
-            source={{ uri: 'https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg' }}
-            style={stylesMobile.logo}
-          />
-          <Text style={stylesMobile.welcome}>Bem-vindo ao</Text>
-          <Text style={stylesMobile.title}>MindCare</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('IniciarSessao')}>
-            <LinearGradient colors={['#2E8B57', '#4CD964']} style={stylesMobile.button}>
-              <Text style={stylesMobile.buttonText}>Iniciar</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
-        <Text style={{marginTop: 10, color: '#4CD964'}} onPress={() => navigation.navigate('Sobre')}>📃Sobre nos</Text>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
 }
-
-const stylesMobile = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#20613d',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 30,
-  },
-  inner: {
-    alignItems: 'center',
-    gap: 20,
-  },
-  logo: {
-    width: 140,
-    height: 140,
-    borderRadius: 80,
-    backgroundColor: '#e7fbe6',
-    marginBottom: 10,
-  },
-  welcome: {
-    fontSize: 20,
-    color: '#2E8B57',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#4CD964',
-  },
-  button: {
-    width: 220,
-    height: 52,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
 
 const stylesweb = StyleSheet.create({
   container: {
@@ -277,11 +202,9 @@ const stylesweb = StyleSheet.create({
     fontWeight: 'bold',
   },
   footer: {
-  flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: '#20613d',
   height: 65,
-  marginTop: 10,
 },
 });
