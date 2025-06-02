@@ -1,4 +1,5 @@
 import * as Services from "../services/Services.js";
+import axios from "axios"
 
 //PARA O ADM_______________________________________________
 export const getAllAdm = async (req, res) => {
@@ -696,4 +697,39 @@ export const deleteAreaProf = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+};
+
+//SMS_______________________________________
+export const enviarCodigo = async (req, res) => {
+  const { telefone, password } = req.body;
+
+  const data = {
+    message: {
+      api_key_app: "prd22f06b2251a947e36feafebec8",
+      phone_number: telefone,
+      message_body: `Seja bem-vindo ao serviço Espaço Gaya! Aqui está o seu código de acesso: ${password}. Use-o para fazer login no app MindCare.`
+    }
+  };
+
+  const config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url: 'https://www.telcosms.co.ao/api/v2/send_message',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  data: data
+};
+
+axios(config)
+  .then(function (response) {
+    console.log('Resposta da API:', response.data);
+  })
+  .catch(function (error) {
+    if (error.response) {
+      console.log('Erro da API:', error.response.data);
+    } else {
+      console.log('Erro inesperado:', error.message);
+    }
+  });
 };

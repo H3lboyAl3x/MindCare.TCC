@@ -68,7 +68,6 @@ router.delete('/mensagens/chat/:idchat', async (req, res) => {
     }
   });
   
-
 //PARA A NumeroP________________________________________
 router.get("/numeroP", Controller.getAllNumeroP);
 router.post("/numeroP", Controller.createNumeroP);
@@ -93,5 +92,8 @@ router.get("/areaprof/idpro/:idpro", Controller.getAreaProfByfk1);
 router.get("/areaprof/idarea/:idarea", Controller.getAreaProfByfk2);
 router.put("/areaprof/:id", Controller.updadeAreaProf);
 router.delete("/areaprof/:id", Controller.deleteAreaProf);
+
+//SMS_______________________________________________
+router.post("/enviar-sms", Controller.enviarCodigo)
 
 export default router;

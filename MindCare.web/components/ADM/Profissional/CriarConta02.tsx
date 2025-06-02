@@ -48,25 +48,17 @@ export default function CriarConta02p({ route, navigation }) {
         idpro: Profissional.id
       });
 
-      const payload = {
-        message: {
-          api_key_app: "prd22f06b2251a947e36feafebec8",
-          phone_number: telefone,
-          message_body: `Sr(a) ${nome}, utiliza seu numero de telefone junto do código de verificação ${password} para autenticar na aplicacao, muito obrigado por adirir nosso servico.`,
-        }
-      };
-
       try {
-        const response = await axios.post("https://www.telcosms.co.ao/send_message", payload, {
-          headers: {
-            "Content-Type": "application/json"
-          }
+        const response = await axios.post(`${getUrl()}/MindCare/API/enviar-sms`, {
+          telefone,
+          password
         });
-
-        return response.data;
+        alert('Sucesso');
       } catch (error) {
-        alert("Erro ao enviar SMS");
+        console.error(error);
+        alert('Falha ao enviar o SMS.');
       }
+      
       navigation.navigate("TelaInicio02", {id: idad, email: emailad, password: passwordad });
       alert('Conta registrada com sucesso!')
     } catch (error) {
