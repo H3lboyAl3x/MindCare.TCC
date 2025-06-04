@@ -703,33 +703,30 @@ export const deleteAreaProf = async (req, res) => {
 export const enviarCodigo = async (req, res) => {
   const { telefone, password } = req.body;
 
-  const data = {
+  const data = JSON.stringify({
     message: {
-      api_key_app: "prd22f06b2251a947e36feafebec8",
+      api_key_app: "prdd0582eb4b2086ae0562a246dec",
       phone_number: telefone,
       message_body: `Seja bem-vindo ao serviço Espaço Gaya! Aqui está o seu código de acesso: ${password}. Use-o para fazer login no app MindCare.`
     }
-  };
+  });
 
   const config = {
-  method: 'post',
-  maxBodyLength: Infinity,
-  url: 'https://www.telcosms.co.ao/api/v2/send_message',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  data: data
-};
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://www.telcosms.co.ao/api/v2/send_message',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: data,
+  };
 
-axios(config)
-  .then(function (response) {
-    console.log('Resposta da API:', response.data);
-  })
-  .catch(function (error) {
-    if (error.response) {
-      console.log('Erro da API:', error.response.data);
-    } else {
-      console.log('Erro inesperado:', error.message);
-    }
-  });
+  try {
+    const response = await axios(config);
+    console.log("Resposta da API:", response.data);
+    res.status(200).json({ success: true, response: response.data });
+  } catch (error) {
+    console.error("Erro ao enviar SMS:", error.response?.data || error.message);
+    res.status(500).json({ success: false, error: error.response?.data || error.message });
+  }
 };
