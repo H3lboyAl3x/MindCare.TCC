@@ -35,10 +35,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run dev:app\" \"npm run dev:empresa\" \"npm run dev:web\" \"npm run dev:api\"",
-    "dev:app": "cd MindCare && npx expo start --port 8081",
-    "dev:empresa": "cd MindCareEmpresa && npx expo start --port 8082",
-    "dev:web": "cd MindCare.web && npx expo start --port 8083",
-    "dev:api": "cd MindCare.API && npm start"
+    "app": "cd MindCare && npx expo start --port 8081",
+    "empresa": "cd MindCareEmpresa && npx expo start --port 8082",
+    "web": "cd MindCare.web && npx expo start --port 8083",
+    "api": "cd MindCare.API && npm start"
   },
   "repository": {
     "type": "git",
