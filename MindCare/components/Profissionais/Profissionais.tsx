@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
-import { Ionicons } from "@expo/vector-icons";
 
 interface Profissional { id: number; tempoexperiencia: number; }
 interface Usuario { id: number; nome: string; email: string; telefone: string; datanascimento: string; }
@@ -178,7 +177,7 @@ export default function Profissionais({ navigation, route }) {
         <View>
           <Text style={styles.Textpro}>Profissionais que ja o acompanham</Text>
           {loading ? (
-            <ActivityIndicator size="large" color="#34C759" />
+            <ActivityIndicator size={50} color="#34C759" />
           ) : (
             <FlatList
               data={profissionaisCFiltrados}
@@ -207,7 +206,7 @@ export default function Profissionais({ navigation, route }) {
         <View>
           <Text style={styles.Textpro}>Outros Profissionais</Text>
           {loading ? (
-            <ActivityIndicator size="large" color="#34C759" />
+            <ActivityIndicator size={50} color="#34C759" />
           ) : (
             <FlatList
               data={profissionaisFiltrados}

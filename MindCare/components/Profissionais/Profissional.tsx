@@ -80,20 +80,17 @@ export default function Perfil01({ navigation, route }) {
     });
   };
 
-  const isWeb = Platform.OS === 'web';
-  const isLargeScreen = width > 800;
-
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#EEF3F8' }} contentContainerStyle={{ padding: isWeb ? 40 : 20 }}>
       <View style={styles.header} />
 
-      <View style={[styles.card, isLargeScreen && { flexDirection: 'row', alignItems: 'flex-start' }]}>
+      <View style={[styles.card]}>
         <Image
           source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
           style={styles.avatar}
         />
 
-        <View style={[styles.infoContainer, isLargeScreen && { marginLeft: 30, flex: 1 }]}>
+        <View style={[styles.infoContainer]}>
           <Text style={styles.name}>{nome}</Text>
           <Text style={styles.text}>Especialidade: {areaTrabalho}</Text>
           <Text style={styles.text}>{experiencia} ano(s) de experiência</Text>
@@ -109,7 +106,7 @@ export default function Perfil01({ navigation, route }) {
             <Ionicons name="create-outline" size={20} color="#4CD964" />
           </TouchableOpacity>
 
-          <View style={[styles.buttons, isLargeScreen && { flexDirection: 'row', gap: 20, marginTop: 30 }]}>
+          <View style={[styles.buttons]}>
             <TouchableOpacity style={styles.button} onPress={CriarConversa}>
               <Text style={styles.buttonText}>Enviar Mensagem</Text>
             </TouchableOpacity>

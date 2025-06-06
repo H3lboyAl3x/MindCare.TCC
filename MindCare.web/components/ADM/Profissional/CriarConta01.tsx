@@ -43,7 +43,7 @@ export default function CriarConta01p({ navigation, route }) {
     const senhaGerada = gerarSenhaAleatoria();
     setPassword(senhaGerada);
 
-    navigation.navigate("CriarConta02", {
+    navigation.navigate("CriarConta02p", {
       nome,
       telefone,
       email,

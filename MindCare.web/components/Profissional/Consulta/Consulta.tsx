@@ -100,7 +100,7 @@ export default function Consulta({ navigation, route }) {
       <View style={{ flex: 1, flexDirection: "row", height: "100%" }}>
         <ScrollView contentContainerStyle={{ width: "100%", paddingTop: 60, flexDirection: "row", flexWrap: "wrap" }}>
           {loading ? (
-            <ActivityIndicator size="large" color="#34C759" />
+            <ActivityIndicator size={50} color="#34C759" />
           ) : (
             paciente.map((item) => (
               <View key={item.id} style={{ width: 230, margin: 5, alignItems: 'center', justifyContent: 'center' }}>

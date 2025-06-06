@@ -189,7 +189,7 @@ export default function Profissionais({ navigation, route }) {
         </Animated.View >
         <ScrollView contentContainerStyle={{ width: "100%", paddingTop: 60, flexDirection: "row", flexWrap: "wrap" }}>
           {loading ? (
-            <ActivityIndicator size="large" color="#34C759" />
+            <ActivityIndicator size={50} color="#34C759" />
           ) : (
             (mostrarProfissionaisC ? profissionaisCFiltrados : profissionaisFiltrados).map((item) => (
               <View key={item.id} style={{ width: 230, margin: 5,  alignItems: 'center', justifyContent: 'center'  }}>

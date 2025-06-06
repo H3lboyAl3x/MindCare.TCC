@@ -4,6 +4,7 @@ import { WebView } from 'react-native-webview';
 
 export default function VideoCall({ navigation, route }) {
   const { link, hora, data } = route.params;
+  const url = `MindCare/components/Consulta/call.html?room=${encodeURIComponent(link)}`
 
   useEffect(() => {
     const consultaHora = new Date(`${data}T${hora}:00`);

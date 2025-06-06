@@ -18,6 +18,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 
 export default function HomeScreen() {
+  
   return(
     <Stack.Navigator screenOptions={{
       headerShown: false,
