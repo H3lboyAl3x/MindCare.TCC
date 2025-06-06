@@ -107,7 +107,7 @@ export default function Pacientes({ navigation, route }) {
       <Text style={styles.titulo}>Pacientes</Text>
       <View style={[styles.Inf, { paddingTop: 10 }]}>
         {loading ? (
-          <ActivityIndicator size="large" color="#34C759" />
+          <ActivityIndicator size={50} color="#34C759" />
         ) : (
           <FlatList
             data={paciente}

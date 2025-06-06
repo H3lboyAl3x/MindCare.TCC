@@ -39,7 +39,7 @@ app.use(errorHandler);
           password: "Admin123",
         });
 
-        if (response.data && response.data.sucesso) {
+        if (response.data) {
           console.log("Admin já existe e login foi bem-sucedido");
         } else {
           // Caso login falhe, cria o admin

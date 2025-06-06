@@ -707,7 +707,7 @@ export const enviarCodigo = async (req, res) => {
     message: {
       api_key_app: "prdd0582eb4b2086ae0562a246dec",
       phone_number: telefone,
-      message_body: `Seja bem-vindo ao serviço Espaço Gaya! Aqui está o seu código de acesso: ${password}. Use-o para fazer login no app MindCare.`
+      message_body: `Seja bem-vindo a plataforma MindCare! Aqui está o seu código de acesso pessoal: ${password}. Use-o para fazer login(não compartilhar com ninguem).`
     }
   });
 

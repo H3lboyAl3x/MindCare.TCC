@@ -19,6 +19,8 @@
     "has-flag": "^4.0.0",
     "is-fullwidth-code-point": "^3.0.0",
     "lodash": "^4.17.21",
+    "react-native-gesture-handler": "^2.25.0",
+    "react-native-screens": "^4.11.1",
     "require-directory": "^2.1.1",
     "rxjs": "^7.8.2",
     "shell-quote": "^1.8.3",
@@ -35,10 +37,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run dev:app\" \"npm run dev:empresa\" \"npm run dev:web\" \"npm run dev:api\"",
-    "app": "cd MindCare && npx expo start --port 8081",
-    "empresa": "cd MindCareEmpresa && npx expo start --port 8082",
-    "web": "cd MindCare.web && npx expo start --port 8083",
-    "api": "cd MindCare.API && npm start"
+    "dev:cliente": "cd MindCareCliente && npx expo start --port 8081",
+    "dev:empresa": "cd MindCareEmpresa && npx expo start --port 8082",
+    "dev:web": "cd MindCare.web && npx expo start --port 8083",
+    "dev:api": "cd MindCare.API && npm start"
   },
   "repository": {
     "type": "git",
