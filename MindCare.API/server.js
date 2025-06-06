@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// HABILITAR CORS AQUI
+// HABILITAR CORS AQUII
 app.use(cors());
 
 // Middleware para JSON
