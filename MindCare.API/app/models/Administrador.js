@@ -7,9 +7,10 @@ const Adm = sequelize.define('administrador', {
         primaryKey: true,
         autoIncrement: true
     },
-    email: {
+    telefone: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
     },
     password: {
         type: DataTypes.STRING,

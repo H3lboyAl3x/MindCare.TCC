@@ -5,57 +5,73 @@ import Routes from "./app/routes/Routes.js";
 import cors from "cors";
 import { errorHandler } from "./app/middlewares/errorHandler.js";
 import axios from "axios";
+import { WebSocketServer } from "ws";
+import http from "http";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// HABILITAR CORS AQUI
 app.use(cors());
-
-// Middleware para JSON
 app.use(express.json());
-
-// Rotas da API
 app.use("/MindCare/API", Routes);
-
-// Middleware de erro
 app.use(errorHandler);
 
-// Conectar ao banco e iniciar servidor
+// === Servidor HTTP + WebSocket === //
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
+
+const clients = {}; // { consultaId: [ws1, ws2] }
+
+wss.on("connection", (ws) => {
+  ws.on("message", (message) => {
+    const data = JSON.parse(message);
+    const { consultaId } = data;
+    if (!consultaId) return;
+
+    // Registra cliente na consulta
+    if (!clients[consultaId]) clients[consultaId] = [];
+    if (!clients[consultaId].includes(ws)) clients[consultaId].push(ws);
+
+    // Repassa a mensagem para os outros
+    clients[consultaId].forEach((client) => {
+      if (client !== ws && client.readyState === ws.OPEN) {
+        client.send(JSON.stringify(data));
+      }
+    });
+  });
+
+  ws.on("close", () => {
+    // Remove cliente desconectado
+    for (const consultaId in clients) {
+      clients[consultaId] = clients[consultaId].filter(c => c !== ws);
+    }
+  });
+});
+
 (async () => {
   try {
     await sequelize.authenticate();
     console.log("Banco conectado com sucesso!");
 
-    const server = app.listen(PORT, async () => {
+    server.listen(PORT, async () => {
       console.log(`Servidor rodando na porta ${PORT}`);
 
       try {
-        // Tentar logar o admin para ver se existe
         const response = await axios.post(`http://localhost:${PORT}/MindCare/API/adm/login`, {
-          email: "Admin@gmail.com",
-          password: "Admin123",
+          telefone: "999999999",
+          password: "123abc",
         });
 
         if (response.data) {
           console.log("Admin já existe e login foi bem-sucedido");
-        } else {
-          // Caso login falhe, cria o admin
-          await axios.post(`http://localhost:${PORT}/MindCare/API/adm`, {
-            email: "Admin@gmail.com",
-            password: "Admin123",
-          });
-          console.log("Admin criado com sucesso");
         }
       } catch (err) {
-        // Se o login deu erro (admin não existe), cria o admin
-        if (err.response && err.response.status === 404) {
-          // Login inválido - cria admin
+        if (err.response?.status === 404) {
           await axios.post(`http://localhost:${PORT}/MindCare/API/adm`, {
-            email: "Admin@gmail.com",
-            password: "Admin123"
+            telefone: "999999999",
+            password: "123abc",
           });
           console.log("Admin criado pois não existia");
         } else {

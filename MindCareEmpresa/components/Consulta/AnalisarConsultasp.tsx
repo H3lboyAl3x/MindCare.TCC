@@ -3,6 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, Linking, Alert } from "react-native";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
+import Consulta from "./Consulta";
 
 const { width, height } = Dimensions.get("window");
 

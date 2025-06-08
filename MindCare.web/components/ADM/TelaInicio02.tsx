@@ -228,7 +228,7 @@ export default function TelaInicio02({ navigation, route }) {
               borderRightWidth: 1,
               borderColor: '#8c8c8c',
               paddingTop: 20,
-              height: 550,
+              height: "250%",
             }}
             {...(Platform.OS === 'web'
               ? {

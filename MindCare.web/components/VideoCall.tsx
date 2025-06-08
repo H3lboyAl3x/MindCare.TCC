@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { View, Alert, Platform } from 'react-native';
-import { WebView } from 'react-native-webview';
 import * as Linking from 'expo-linking';
 
 export default function VideoCall({ navigation, route }) {

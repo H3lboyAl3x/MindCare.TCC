@@ -23,8 +23,8 @@ export const getAdmById = async (id) => {
     return await Adm.findByPk(id);
 }
 //buscar um adm por email e password(Login)
-export const getAdmByLogin = async (email, password) => {
-    return await Adm.findOne({ where: { email, password } });
+export const getAdmByLogin = async (telefone, password) => {
+    return await Adm.findOne({ where: { telefone, password } });
 };
 //atualizar adm
 export const updateAdm = async (id, updates) => {
@@ -58,8 +58,8 @@ export const getUsuarioById = async (id) => {
     return await Usuarios.findByPk(id);
 };
 //buscar um usuario por Email e Password(Login)
-export const getUsuarioByLogin = async (email, password) => {
-    return await Usuarios.findOne({ where: { email, password } });
+export const getUsuarioByLogin = async (telefone, password) => {
+    return await Usuarios.findOne({ where: { telefone, password } });
 };
 //atualizar usuario
 export const uptadeUsuario = async (id, updates) => {

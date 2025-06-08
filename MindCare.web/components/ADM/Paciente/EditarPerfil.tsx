@@ -89,18 +89,6 @@ export default function EditarPerfil({navigation,route}){
                       value={Email}
                       onChangeText={setemail}
                     />
-                    <TouchableOpacity style={stylesWeb.input} onPress={() => {navigation.navigate('EditarSenha', {
-                                id: ide,
-                                nome: nomee,
-                                telefone: telefonee,
-                                email: emaile,
-                                password: passworde,
-                                datanascimento: datanascimentoe,
-                                genero: generoe
-                            })}}>
-                        <Text style={{color: '#4CD964'}}>Alterar minha Senha</Text>
-                    </TouchableOpacity>
-
                     <TouchableOpacity style={stylesWeb.input}>
                                   <input
                                     type="date"

@@ -16,18 +16,18 @@ import { getUrl } from "@/app/utils/url";
 import { CommonActions } from "@react-navigation/native";
 
 export default function IniciarSessao({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [telefone, settelefone] = useState("");
   const [password, setPassword] = useState("");
   const [espaco, setEspaco] = useState("");
 
   const iniciar = async () => {
-    if (!email || !password) {
+    if (!telefone || !password) {
       setEspaco("Preencha todos os campos antes de continuar.");
       return;
     }
 
     try {
-        const response = await axios.post(`${getUrl()}/MindCare/API/users/login`, { email, password });
+        const response = await axios.post(`${getUrl()}/MindCare/API/users/login`, { telefone, password });
         const usuario = response.data;
     
         const formattedDate = usuario.datanascimento
@@ -83,10 +83,11 @@ export default function IniciarSessao({ navigation }) {
           <Text style={stylesMobile.welcomeText}>Iniciar Sessão</Text>
           <TextInput
             style={stylesMobile.textbox}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Email"
+            value={telefone}
+            onChangeText={settelefone}
+            placeholder="Telefone"
             placeholderTextColor={"#b3b3b3"}
+            keyboardType="phone-pad"
           />
           <TextInput
             style={stylesMobile.textbox}

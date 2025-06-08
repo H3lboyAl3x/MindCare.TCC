@@ -1,6 +1,4 @@
-import { TopWaves } from "@/app/TopWaves";
 import { getUrl } from "@/app/utils/url";
-import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import axios from "axios";
 import React, { useState } from "react";

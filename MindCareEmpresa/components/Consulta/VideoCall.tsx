@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Alert, Platform } from 'react-native';
-import { WebView } from 'react-native-webview';
+import * as Linking from 'expo-linking';
 
 export default function VideoCall({ navigation, route }) {
   const { link, hora, data } = route.params;
@@ -29,11 +29,12 @@ export default function VideoCall({ navigation, route }) {
 
       return () => clearTimeout(timer);
     }
+    Linking.openURL(link);
   }, [hora, data, navigation]);
 
   return (
-    <View style={{ flex: 1 }}>
-      <WebView source={{ uri: link }} style={{ flex: 1 }} />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      {/* Informar que será redirecionado */}
     </View>
   );
 }

@@ -34,10 +34,10 @@ export const getAdmById = async (req, res) => {
 
 export const getAdmByLogin = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const adm = await Services.getAdmByLogin(email, password);
+        const { telefone, password } = req.body;
+        const adm = await Services.getAdmByLogin(telefone, password);
         if (!adm) {
-            return res.status(404).json({ message: `Adm não encontrado com nome: ${email}` });
+            return res.status(404).json({ message: `Adm não encontrado com telefone: ${telefone}` });
         }
         
         res.status(200).json(adm);
@@ -104,10 +104,10 @@ export const getUsuarioById = async (req, res) => {
 
 export const getUsuarioByLogin = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await Services.getUsuarioByLogin(email, password);
+        const { telefone, password } = req.body;
+        const user = await Services.getUsuarioByLogin(telefone, password);
         if (!user) {
-            return res.status(404).json({ message: `Usuário não encontrado com email: ${email}` });
+            return res.status(404).json({ message: `Usuário não encontrado com telefone: ${telefone}` });
         }
         
         res.status(200).json(user);
@@ -707,7 +707,7 @@ export const enviarCodigo = async (req, res) => {
     message: {
       api_key_app: "prdd0582eb4b2086ae0562a246dec",
       phone_number: telefone,
-      message_body: `Seja bem-vindo a plataforma MindCare! Aqui está o seu código de acesso pessoal: ${password}. Use-o para fazer login(não compartilhar com ninguem).`
+      message_body: `Seja bem-vindo a plataforma MindCare!\nAqui está os seus dados de acesso pessoal: \nTelefone: ${telefone} \nPassword: ${password} \n \nUse-o para fazer login na plataforma \n(Por favor não compartilhar com ninguem).`
     }
   });
 

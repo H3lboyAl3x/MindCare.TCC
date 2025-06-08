@@ -115,22 +115,6 @@ if (Platform.OS === 'web') {
               value={Email}
               onChangeText={setemail}
             />
-
-            <TouchableOpacity style={stylesWeb.input} onPress={() => navigation.navigate('EditarSenhap', {
-              id: ide,
-              idp: idpe,
-              nome: nomee,
-              telefone: telefonee,
-              email: emaile,
-              password: passworde,
-              datanascimento: datanascimentoe,
-              genero: generoe,
-              espe,
-              expe
-            })}>
-              <Text style={{ color: '#4CD964' }}>Alterar minha Senha</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity style={stylesWeb.input}>
               <input
                 type="date"

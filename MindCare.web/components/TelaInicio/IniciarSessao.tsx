@@ -16,12 +16,12 @@ import { getUrl } from "@/app/utils/url";
 import { CommonActions } from "@react-navigation/native";
 
 export default function IniciarSessao({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [telefone, settelefone] = useState("");
   const [password, setPassword] = useState("");
   const [espaco, setEspaco] = useState("");
 
   const iniciar = async () => {
-    if (!email || !password) {
+    if (!telefone || !password) {
       setEspaco("Preencha todos os campos antes de continuar.");
       return;
     }
@@ -29,17 +29,16 @@ export default function IniciarSessao({ navigation }) {
     try {
       let Adm = null;
       try {
-        const ADM = await axios.post(`${getUrl()}/MindCare/API/adm/login`, { email, password });
+        const ADM = await axios.post(`${getUrl()}/MindCare/API/adm/login`, { telefone, password });
         Adm = ADM.data;
-        console.log(Adm);
       } catch (error) {
         console.log("Não é ADM:",error);
       }
   
       if (Adm) {
-        navigation.navigate('TelaInicio02', { id: Adm.id, email: Adm.email, password: Adm.password });
+        navigation.navigate('TelaInicio02', { id: Adm.id, email: Adm.telefone, password: Adm.password });
       } else {
-        const response = await axios.post(`${getUrl()}/MindCare/API/users/login`, { email, password });
+        const response = await axios.post(`${getUrl()}/MindCare/API/users/login`, { telefone, password });
         const usuario = response.data;
     
         const formattedDate = usuario.datanascimento
@@ -137,11 +136,11 @@ export default function IniciarSessao({ navigation }) {
               <Text style={stylesWeb.formTitle}>Iniciar Sessão</Text>
               <TextInput
                 style={stylesWeb.input}
-                placeholder="Email"
+                placeholder="Telefone"
                 placeholderTextColor="#b3b3b3"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
+                value={telefone}
+                onChangeText={settelefone}
+                keyboardType="phone-pad"
               />
               <TextInput
                 style={stylesWeb.input}
@@ -163,101 +162,7 @@ export default function IniciarSessao({ navigation }) {
       </SafeAreaView>
     );
   }
-
-  return (
-    <SafeAreaView style={stylesMobile.safeArea}>
-      <KeyboardAvoidingView behavior="padding" style={stylesMobile.container}>
-        <View style={stylesMobile.inner}>
-          <Image
-            source={{
-              uri: "https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg"
-            }}
-            style={stylesMobile.logo}
-          />
-          <Text style={stylesMobile.welcomeText}>Iniciar Sessão</Text>
-          <TextInput
-            style={stylesMobile.textbox}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Email"
-            placeholderTextColor={"#b3b3b3"}
-          />
-          <TextInput
-            style={stylesMobile.textbox}
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Senha"
-            placeholderTextColor={"#b3b3b3"}
-          />
-          <Text style={{ fontSize: 11, color: "red" }}>{espaco}</Text>
-          <TouchableOpacity onPress={iniciar}>
-            <LinearGradient colors={['#2E8B57', '#4CD964']} style={stylesMobile.button}>
-                <Text style={stylesMobile.buttonText}>Iniciar</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
 }
-
-const stylesMobile = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#20613d"
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 30
-  },
-  inner: {
-    alignItems: "center",
-    width: "100%",
-    gap: 20
-  },
-  logo: {
-    width: 140,
-    height: 140,
-    borderRadius: 80,
-    backgroundColor: "#e7fbe6",
-    marginBottom: 10
-  },
-  welcomeText: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#4CD964"
-  },
-  textbox: {
-    marginTop: 20,
-    color: "#000",
-    width: "80%",
-    height: 50,
-    borderRadius: 50,
-    backgroundColor: "#e3e6e3",
-    textAlign: "center"
-  },
-  button: {
-    width: 220,
-    height: 52,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
-});
-
 const stylesWeb = StyleSheet.create({
   safeArea: {
     flex: 1,

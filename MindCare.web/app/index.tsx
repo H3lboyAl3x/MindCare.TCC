@@ -15,7 +15,6 @@ import Mensagem from "@/components/Mensagem/Mensagem";
 import Proficional from "@/components/Paciente/Profissionais/Profissional";
 import DetalhesProfissional from "@/components/Paciente/Profissionais/DetalhesProfissional";
 import ExibirInformacao from "@/components/Paciente/Perfil/ExibirInformacao";
-import EditarSenha from "@/components/ADM/Paciente/EditarSenha";
 import MarcarConsulta from "@/components/Paciente/Consulta/MarcarConsulta";
 import Pacientes from "@/components/Profissional/Paciente/Pacientes";
 import Paciente from "@/components/Profissional/Paciente/Paciente";
@@ -23,7 +22,6 @@ import DetalhesPaciente from "@/components/Profissional/Paciente/DetalhesPacient
 import MarcarConsultap from "@/components/Profissional/Consulta/MarcarConsultap";
 import ExibirInformacaop from "@/components/Profissional/Perfil/ExibirInformacao";
 import EditarPerfilp from "@/components/ADM/Profissional/EditarPerfil";
-import EditarSenhap from "@/components/ADM/Profissional/EditarSenhap";
 import Sobre from "@/components/TelaInicio/Sobre";
 import Progresso from "@/components/Profissional/Consulta/ProgressoConsulta";
 import PP from "@/components/Profissional/Perfil/PP";
@@ -61,8 +59,6 @@ export default function HomeScreen() {
       <Stack.Screen name="Proficional" component={Proficional} options={{ headerShown: false }}/>
       <Stack.Screen name="DetalhesProfissional" component={DetalhesProfissional} options={{ headerShown: false }}/>
       <Stack.Screen name="ExibirInformacao" component={ExibirInformacao} options={{ headerShown: false }}/>
-      <Stack.Screen name="EditarSenha" component={EditarSenha} options={{ headerShown: false }}/>
-      <Stack.Screen name="EditarSenhap" component={EditarSenhap} options={{ headerShown: false }}/>
       <Stack.Screen name="MarcarConsulta" component={MarcarConsulta} options={{ headerShown: false }}/>
       <Stack.Screen name="MarcarConsultap" component={MarcarConsultap} options={{ headerShown: false }}/>
       <Stack.Screen name="Pacientes" component={Pacientes} options={{ headerShown: false }}/>
