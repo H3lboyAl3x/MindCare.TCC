@@ -730,3 +730,34 @@ export const enviarCodigo = async (req, res) => {
     res.status(500).json({ success: false, error: error.response?.data || error.message });
   }
 };
+
+export const enviarmarcacao = async (req, res) => {
+  const { nome1, nome2, dia, hora, telefone } = req.body;
+
+  const data = JSON.stringify({
+    message: {
+      api_key_app: "prdd0582eb4b2086ae0562a246dec",
+      phone_number: telefone,
+      message_body: `Cordias saudacoes Sr/a ${nome1}. \nFoi marcada uma consulta pelo:${nome2}. \nMarcado a ${dia}, no horario:${hora}`
+    }
+  });
+
+  const config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://www.telcosms.co.ao/api/v2/send_message',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: data,
+  };
+
+  try {
+    const response = await axios(config);
+    console.log("Resposta da API:", response.data);
+    res.status(200).json({ success: true, response: response.data });
+  } catch (error) {
+    console.error("Erro ao enviar SMS:", error.response?.data || error.message);
+    res.status(500).json({ success: false, error: error.response?.data || error.message });
+  }
+};

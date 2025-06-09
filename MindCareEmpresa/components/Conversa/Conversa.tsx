@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Platform,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import {View,Text,StyleSheet,FlatList,TouchableOpacity,Platform,useWindowDimensions} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
-import Mensagem from "@/components/Conversa/Mensagem";
 
 interface ConversaItem {
   id: number;
@@ -23,9 +13,6 @@ interface ConversaItem {
 export default function Conversa({ navigation, route }) {
   const { id } = route.params;
   const [conversas, setConversas] = useState<ConversaItem[]>([]);
-  const [chatSelecionado, setChatSelecionado] = useState<ConversaItem | null>(null);
-  const isWeb = Platform.OS === "web";
-  const { width } = useWindowDimensions();
   const [sos, setSos] = useState("");
 
   const fetchConversas = async () => {
@@ -79,23 +66,9 @@ export default function Conversa({ navigation, route }) {
     const intervalo = setInterval(fetchConversas, 1000);
     return () => clearInterval(intervalo);
   }, [id]);
-
-  const renderConversas = () => {
-    if (conversas.length === 0) {
-      return (
-        <View>
-          <Image
-            source={{
-              uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png",
-            }}
-            style={styles.logo}
-          />
-          <Text style={{ textAlign: "center", marginTop: 30, color: Platform.OS === 'web'? "#000" : "#fff" }}>{sos}</Text>
-        </View>
-      );
-    }
-
-    return (
+  return (
+    <View style={styles.container}>
+      <Text style={{backgroundColor: '#4CD964', color: '#20613d', fontSize: 15, textAlign: 'center'}}>{sos}</Text>
       <FlatList
         style={styles.Inf}
         data={conversas}
@@ -104,90 +77,41 @@ export default function Conversa({ navigation, route }) {
           const content = (
             <TouchableOpacity
               style={styles.pessoa}
-              onPress={() =>
-                isWeb
-                  ? setChatSelecionado(item)
-                  : navigation.navigate("Mensagem", { idchats: item.id, nome: item.nome, id })
-              }
-            >
-              <Text style={[styles.textp, { color: "#fff" }]}>{item.nome}</Text>
-              <Text style={[styles.textp, { color: "#e6e6e6" }]}>{item.ultimaMensagem}</Text>
-              <Text style={[styles.textp, { color: "#e6e6e6", fontSize: 12, textAlign: "right" }]}>
-                {item.hora}
-              </Text>
+              onPress={() => navigation.navigate("Mensagem", { idchats: item.id, nome: item.nome, id })}>
+                <Text style={[styles.textp, { color: "#20613d", fontSize: 19 }]}>{item.nome}</Text>
+                <Text style={[styles.textp, { color: "#e6e6e6" }]}>{item.ultimaMensagem}</Text>
+                <Text style={[styles.textp, { color: "#e6e6e6", fontSize: 12, textAlign: "right" }]}>
+                  {item.hora}
+                </Text>
             </TouchableOpacity>
           );
-
-          if (isWeb) {
-            return <div>{content}</div>;
-          }
-
           return content;
         }}
       />
-    );
-  };
-
-  const renderMensagemWeb = () => (
-    <View style={{ flex: 1, backgroundColor: "#e3e6e3" }}>
-      {chatSelecionado ? (
-        <Mensagem route={{ params: { idchats: chatSelecionado.id, nome: chatSelecionado.nome, id } }} />
-      ) : (
-        <Text style={{ textAlign: "center", marginTop: 20 }}>
-          Selecione uma conversa para visualizar as mensagens usando o botão esquerdo ou exclua-a utilizando o botão direito.
-        </Text>
-      )}
     </View>
   );
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Conversas</Text>
-      {isWeb && width > 768 ? (
-        <View style={{ flexDirection: "row", flex: 1 }}>
-          <View style={{ flex: 1 }}>{renderConversas()}</View>
-          {renderMensagemWeb()}
-        </View>
-      ) : (
-        renderConversas()
-      )}
-    </View>
-  );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Platform.OS === "web" ? "#fff" : "#2E8B57",
-  },
-  titulo: {
-    fontSize: 25,
-    marginBottom: 10,
     backgroundColor: "#4CD964",
-    color: "#fff",
-    height: 40,
-    textAlign: "center",
-  },
-  logo: {
-    width: 140,
-    height: 140,
-    borderRadius: 20,
-    backgroundColor: "#e7fbe6",
-    marginTop: 50,
-    alignSelf: "center",
   },
   pessoa: {
-    padding: 15,
-    backgroundColor: "#4CD964",
+    padding: 10,
+    backgroundColor: "#fff",
     height: 80,
     borderRadius: 20,
     marginTop: 5,
     marginHorizontal: 5,
+    alignSelf: 'center',
+    width: '98%'
   },
   textp: {
     fontSize: 15,
+    color: "#4CD964" 
   },
   Inf: {
-    backgroundColor: Platform.OS === "web" ? "#fff" : "#2E8B57",
+    backgroundColor: "#4CD964",
   },
 });

@@ -77,6 +77,9 @@ export default function Perfil01({ navigation, route }) {
     navigation.navigate('MarcarConsulta', {
       idpaci: idu,
       idpro: id,
+      nome: nome,
+      nomep: nomeu,
+      telefone: telefone,
     });
   };
 

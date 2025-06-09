@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet, Platform, Keyboard } 
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet } 
 from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
@@ -21,13 +21,11 @@ interface SMS {
   hora: string;
 }
 
-export default function Mensagem({ route }) {
+export default function Mensagem({ route, navigation }) {
   const { idchats, nome, id } = route.params;
 
   const [sms, setSms] = useState<SMS[]>([]);
   const [mensagem, setMensagem] = useState("");
-  const [data, setdata] = useState("");
-  const [hora, sethora] = useState("");
 
   const pegarData = () => {
     const agora = new Date();
@@ -61,8 +59,6 @@ export default function Mensagem({ route }) {
 
   useEffect(() => {
     buscarMensagens();
-    setdata(pegarData());
-    sethora(pegarHora());
     const intervalo = setInterval(buscarMensagens, 1000);
     return () => {
       clearInterval(intervalo);
@@ -86,8 +82,9 @@ export default function Mensagem({ route }) {
     }
   };
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView style={styles.container} behavior={'height'}>
       <View style={styles.titulo}>
+        <Ionicons style={{marginLeft: 5}} name="arrow-back-outline" size={25} color={"#20613d"} onPress={() => navigation.goBack()}/>
         <Text style={styles.nomep}>{nome}</Text>
       </View>
 
@@ -95,8 +92,8 @@ export default function Mensagem({ route }) {
         data={sms}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={[styles.caixasms, { alignSelf: item.remetente === id ? "flex-end" : "flex-start", backgroundColor: item.remetente === id ? "#4CD964" : "#FFFFFF", borderBottomLeftRadius: item.remetente === id ? 15 : 0, borderBottomRightRadius: item.remetente === id ? 0 : 15 }]}>
-            <Text style={[styles.textp, { color: item.remetente === id ? "#fff" : "#000" }]}>{item.conteudo}</Text>
+          <View style={[styles.caixasms, { alignSelf: item.remetente === id ? "flex-end" : "flex-start", backgroundColor: item.remetente === id ? "#56FF95" : "#FFFFFF", borderBottomLeftRadius: item.remetente === id ? 15 : 0, borderBottomRightRadius: item.remetente === id ? 0 : 15 }]}>
+            <Text style={[styles.textp, { color: "#000", fontSize: 15 }]}>{item.conteudo}</Text>
             {item.hora && <Text style={[styles.textp, { color: "#757575", fontSize: 12, textAlign: "right" }]}>{item.hora.slice(0, 5)}</Text>}
           </View>
         )}
@@ -105,13 +102,14 @@ export default function Mensagem({ route }) {
       />
       <View style={styles.escrever}>
         <TextInput 
-          placeholder="Mensagem" 
+          placeholder="Mensagem"
+          placeholderTextColor={"#c0c0c0"}
           style={styles.ti} 
           value={mensagem} 
           onChangeText={setMensagem} 
         />
         <TouchableOpacity style={styles.icon} onPress={enviarMensagem}>
-          <Ionicons name="send-outline" size={32} color={"#2E8B57"} />
+          <Ionicons name="send-outline" size={32} color={"#fff"} />
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -122,17 +120,17 @@ export default function Mensagem({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4CD964",
+    backgroundColor: "#B3D0B3",
   },
   titulo: {
     fontSize: 25,
-    marginBottom: 10,
+    marginBottom: 5,
     backgroundColor: '#4CD964',
     height: 50,
-    justifyContent: 'center',
-    width: '98%',
+    alignItems: 'center',
+    width: '100%',
     alignSelf: 'center',
-    borderRadius: 25,
+    flexDirection: 'row'
   },
   nomep: {
     fontSize: 25,
@@ -141,29 +139,29 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flexGrow: 1,
-    backgroundColor: Platform.OS === 'web' ? "#dbdbdb" : "#2E8B57",
+    backgroundColor: "#B3D0B3",
     paddingHorizontal: 10,
     paddingVertical: 10,
 
   },
   escrever: {
     height: 80,
-    backgroundColor: Platform.OS === 'web' ? "#dbdbdb" : "#2E8B57",
+    backgroundColor: "#B3D0B3",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    paddingBottom: 25,
+    paddingBottom: 25
   },
   ti: {
     height: 50,
     width: "85%",
-    backgroundColor: Platform.OS === 'web' ? "#58f573" : "#fff",
+    backgroundColor: "#fff",
     borderRadius: 25,
     paddingHorizontal: 10,
-    color: Platform.OS === 'web' ? "#000" : "#000",
+    color: "#000",
   },
   icon: {
-    backgroundColor: "#4CD964",
+    backgroundColor: "#20613d",
     height: 45,
     width: 45,
     alignItems: "center",

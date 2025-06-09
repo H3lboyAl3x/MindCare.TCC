@@ -12,7 +12,6 @@ const Tab = createBottomTabNavigator();
 
 export default function Navegacao2({ route }) {
   const { id, nome, telefone, email, password, datanascimento, genero, espe, expe } = route.params;
-  const isWeb = Platform.OS === 'web';
   
   return (
     <Tab.Navigator
@@ -20,27 +19,19 @@ export default function Navegacao2({ route }) {
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#e0e0e0',
         tabBarStyle: {
-          position: 'absolute',
-          top: isWeb ? 0 : undefined,
-          bottom: isWeb ? undefined : 0,
-          height: 60,
-          width: isWeb ? '100%' : '100%',
-          alignSelf: isWeb ? 'stretch' : 'center',
-          borderTopWidth: 0,
-          elevation: 0,
-          overflow: 'hidden',
-          paddingHorizontal: isWeb ? 400 : 0,
+          height: 50,
+          width: '100%',
         },     
         tabBarItemStyle: {
-          marginHorizontal: isWeb ? -10 : 0
+          marginHorizontal: 0
         },
         tabBarBackground: () => (
           <LinearGradient
-            colors={isWeb ? ['#2E8B57', '#2E8B57'] : ['#4CD964', '#4CD964']}
+            colors={['#20613d', '#20613d']}
             style={{ flex: 1 }}
           />
         ),
-        tabBarLabel: isWeb ? () => null : undefined,
+        tabBarLabel: undefined,
       }}
     >
       <Tab.Screen
@@ -57,7 +48,7 @@ export default function Navegacao2({ route }) {
       <Tab.Screen
         name="Pacientes"
         component={Paciente}
-        initialParams={{ id }}
+        initialParams={{ id, nomep: nome }}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people-outline" size={size} color={color} />

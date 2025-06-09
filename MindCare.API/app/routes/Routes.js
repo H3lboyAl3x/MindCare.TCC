@@ -94,6 +94,7 @@ router.put("/areaprof/:id", Controller.updadeAreaProf);
 router.delete("/areaprof/:id", Controller.deleteAreaProf);
 
 //SMS_______________________________________________
-router.post("/enviar-sms", Controller.enviarCodigo)
+router.post("/enviar-sms", Controller.enviarCodigo);
+router.post("/enviar-sms01", Controller.enviarmarcacao);
 
 export default router;

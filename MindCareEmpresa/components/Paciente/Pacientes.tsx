@@ -35,7 +35,7 @@ interface NumeroP {
 }
 
 export default function Pacientes({ navigation, route }) {
-  const { id } = route.params;
+  const { id, nomep } = route.params;
   const [paciente, setPaciente] = useState<PacienteComNome[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -122,6 +122,7 @@ export default function Pacientes({ navigation, route }) {
                   email: item.email,
                   telefone: item.telefone,
                   datanascimento: item.datanascimento,
+                  nomep: nomep,
                 })}
               >
                 <Text style={styles.nome}>{item.nome}</Text>

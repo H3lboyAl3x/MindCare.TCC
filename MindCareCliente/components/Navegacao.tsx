@@ -18,21 +18,15 @@ export default function Navegacao({ route }) {
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#e0e0e0',
         tabBarStyle: {
-          position: 'absolute',
-          height: 60,
+          height: 50,
           width: '100%',
-          alignSelf: 'center',
-          borderTopWidth: 0,
-          elevation: 0,
-          overflow: 'hidden',
-          paddingHorizontal: 0,
         },
         tabBarItemStyle: {
           marginHorizontal: 0
         },
         tabBarBackground: () => (
           <LinearGradient
-            colors= {['#4CD964', '#4CD964']}
+            colors= {['#20613d', '#20613d']}
             style={{ flex: 1 }}
           />
         ),
@@ -47,7 +41,7 @@ export default function Navegacao({ route }) {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="chatbox-outline" size={size} color={color} />
           ),
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Tab.Screen

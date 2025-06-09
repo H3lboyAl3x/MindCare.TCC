@@ -20,14 +20,8 @@ interface Chat {
     idpro: number;
 }
 
-interface NumeroP {
-    id: number;
-    idprof: number;
-    idpac: number;
-}
-
 export default function Paciente({ navigation, route }) {
-    const { idu, id, nome, email, telefone, datanascimento } = route.params;
+    const { idu, id, nome, email, telefone, datanascimentom, nomep } = route.params;
     const { width } = useWindowDimensions();
     const isLargeScreen = width >= 800;
 
@@ -68,7 +62,10 @@ export default function Paciente({ navigation, route }) {
     const CriarConsulta = () => {
         navigation.navigate('MarcarConsultap', {
             idpaci: id,
-            idpro: idu
+            idpro: idu,
+            nome: nome,
+            nomep: nomep,
+            telefone: telefone
         });
     };
 

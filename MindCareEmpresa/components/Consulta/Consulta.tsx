@@ -83,18 +83,6 @@ export default function Consulta({ navigation, route }) {
     return () => clearInterval(intervalo);
   }, [id]);
 
-  const renderPaciente = (item: PacienteComNome) => (
-    <TouchableOpacity
-      style={[styles.card, {width: 230}]}
-      onPress={() => navigation.navigate("Progresso", {
-        idp: item.id,
-      })}>
-      <Text style={styles.nome}>{item.nome}</Text>
-      <Text style={styles.nome}>Email: {item.email}</Text>
-    <Text style={styles.nome}>Telefone: {item.telefone}</Text>
-    </TouchableOpacity>
-  );
-
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Consultas</Text>

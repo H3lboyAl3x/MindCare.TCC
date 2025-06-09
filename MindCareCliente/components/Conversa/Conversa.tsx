@@ -10,20 +10,10 @@ interface ConversaItem {
   hora: string;
 }
 
-interface NumeroP {
-    id: number;
-    idprof: number;
-    idpac: number;
-}
-
 export default function Conversa({ navigation, route }) {
   const { id } = route.params;
   const [conversas, setConversas] = useState<ConversaItem[]>([]);
-  const [chatSelecionado, setChatSelecionado] = useState<ConversaItem | null>(null);
-  const isWeb = Platform.OS === "web";
-  const { width } = useWindowDimensions();
   const [sos, setSos] = useState('');
-  const [idprof, setIdprof] = useState(null);
 
   const fetchConversas = async () => {
     try {
@@ -39,7 +29,6 @@ export default function Conversa({ navigation, route }) {
         chats.map(async (chat: { idpro: any; id: any; }) => {
           try {
             const prof = await axios.get(`${getUrl()}/MindCare/API/profissionais/${chat.idpro}`);
-            setIdprof(prof.data.id);
             const user = await axios.get(`${getUrl()}/MindCare/API/users/${prof.data.id}`);
             const mensagens = await axios.get(`${getUrl()}/MindCare/API/mensagens/idchat/${chat.id}`);
             const lista = mensagens.data;
@@ -74,66 +63,50 @@ export default function Conversa({ navigation, route }) {
     return () => clearInterval(interval);
   }, [id]);
     return (
-      <FlatList
-        style={styles.Inf}
-        data={conversas}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => {
-          const content = (
-            <TouchableOpacity
-              style={styles.pessoa}
-              onPress={() =>
-                isWeb
-                  ? setChatSelecionado(item)
-                  : navigation.navigate("Mensagem", { idchats: item.id, nome: item.nome, id })
-              }
-            >
-              <Text style={[styles.textp, { color: "#fff" }]}>{item.nome}</Text>
-              <Text style={[styles.textp, { color: "#e6e6e6" }]}>{item.ultimaMensagem}</Text>
-              <Text style={[styles.textp, { color: "#e6e6e6", fontSize: 12, textAlign: "right" }]}>
-                {item.hora}
-              </Text>
-            </TouchableOpacity>
-          );
-          return content;
-        }}
-      />
+      <View style={styles.container}>
+        <Text style={{backgroundColor: '#4CD964', color: '#20613d', fontSize: 15, textAlign: 'center'}}>{sos}</Text>
+        <FlatList
+          style={styles.Inf}
+          data={conversas}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => {
+            const content = (
+              <TouchableOpacity
+                style={styles.pessoa}
+                onPress={() => navigation.navigate("Mensagem", { idchats: item.id, nome: item.nome, id })}>
+                <Text style={[styles.textp, { color: "#20613d", fontSize: 19 }]}>{item.nome}</Text>
+                <Text style={[styles.textp, { color: "#e6e6e6" }]}>{item.ultimaMensagem}</Text>
+                <Text style={[styles.textp, { color: "#e6e6e6", fontSize: 12, textAlign: "right" }]}>
+                  {item.hora}
+                </Text>
+              </TouchableOpacity>
+            );
+            return content;
+          }}
+        />
+      </View>
     );
   };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Platform.OS === 'web' ? "#fff" : "#2E8B57",
-  },
-  titulo: {
-    fontSize: 25,
-    marginBottom: 10,
     backgroundColor: "#4CD964",
-    color: "#fff",
-    height: 40,
-    textAlign: "center",
-  },
-  logo: {
-    width: 140,
-    height: 140,
-    borderRadius: 20,
-    backgroundColor: "#e7fbe6",
-    marginTop: 50,
-    alignSelf: "center",
   },
   pessoa: {
-    padding: 15,
-    backgroundColor: "#4CD964",
+    padding: 10,
+    backgroundColor: "#fff",
     height: 80,
     borderRadius: 20,
-    marginTop: 5,
     marginHorizontal: 5,
+    alignSelf: 'center',
+    width: '98%'
   },
   textp: {
     fontSize: 15,
+    color: "#4CD964" 
   },
   Inf: {
-    backgroundColor: Platform.OS === 'web' ? "#fff" : "#2E8B57",
+    backgroundColor: "#4CD964",
   },
 });

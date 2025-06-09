@@ -16,7 +16,7 @@ type Consulta = {
 };
 
 export default function MarcarConsulta({ navigation, route }) {
-    const { idpaci, idpro } = route.params;
+    const { idpaci, idpro, nome, nomep telefone } = route.params;
 
     const [datamarcacao, setDatan] = useState<Date | null>(null);
     const [tempomarcacao, settempo] = useState<Date | null>(null);
@@ -65,7 +65,14 @@ export default function MarcarConsulta({ navigation, route }) {
               status: "Pendente",
               link: `https://meet.jit.si/${idpaci + idpro}`,
             });
-            alert("Consulta marcada com sucesso.")
+            await axios.post(`${getUrl()}/MindCare/API/enviar-sms`, {
+              nome1: nome,
+              nome2: `Profissional ${nomep}`,
+              dia: response.data.data,
+              hora: response.data.hora,
+              telefone: telefone
+            });
+            alert("Consulta marcada com sucesso.");
             navigation.goBack();
           }else{
             Alert.alert("Ja tem consulta marcada para esta data e horario!");
