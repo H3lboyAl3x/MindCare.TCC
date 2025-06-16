@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     EP: {
         marginTop: 20,
         backgroundColor: '#14AE5C',
-        width: 150,
+        width: '60%',
         height: 50,
         borderRadius: 25,
         alignItems: 'center',

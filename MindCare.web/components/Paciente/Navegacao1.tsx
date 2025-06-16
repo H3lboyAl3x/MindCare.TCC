@@ -44,17 +44,6 @@ export default function Navegacao1({ route }) {
       }}
     >
       <Tab.Screen
-        name="Conversas"
-        component={Conversa}
-        initialParams={{ id: id}}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbox-outline" size={size} color={color} />
-          ),
-          headerShown: false
-        }}
-      />
-      <Tab.Screen
         name="Profissionais"
         component={Profissionais}
         initialParams={{ idu: id, nomeu: nome, telefoneu: telefone, emailu: email, passwordu: password, datanascimentou: datanascimento, generou: genero  }}
@@ -65,6 +54,18 @@ export default function Navegacao1({ route }) {
           headerShown: false
         }}
       />
+      <Tab.Screen
+        name="Conversas"
+        component={Conversa}
+        initialParams={{ id: id}}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbox-outline" size={size} color={color} />
+          ),
+          headerShown: false
+        }}
+      />
+      
       <Tab.Screen
         name="Consulta"
         component={Consulta}

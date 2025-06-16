@@ -142,8 +142,9 @@ export default function Profissionais({ navigation, route }) {
             contentContainerStyle={styles.scrollEspecialidades}
             renderItem={({ item }) => (
               <TouchableOpacity style={styles.bolinhaContainer} onPress={() => setEspecialidadeSelecionada(item.id)}>
-                <View style={styles.bolinha} />
-                <Text style={styles.textoEspecialidade}>{item.area}</Text>
+                <View style={styles.bolinha}>
+                  <Text style={styles.textoEspecialidade}>{item.area}</Text>
+                </View>
               </TouchableOpacity>
             )}
           />
@@ -217,18 +218,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#4CD964",
   },
   titulo: {
-      fontSize: 25,
-      marginBottom: 10,
-      backgroundColor: '#4CD964',
-      color: '#fff',
-      height: 40,
-      textAlign: 'center'
+    fontSize: 25,
+    backgroundColor: '#4CD964',
+    color: '#fff',
+    height: 40,
+    textAlign: 'center'
   },
   especialidades: {
     textAlign: "center",
     fontSize: 15,
     color: "#2E8B57",
-    marginBottom: 5,
   },
   scrollEspecialidades: {
     paddingHorizontal: 10,
@@ -238,10 +237,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   bolinha: {
-    width: 50,
+    width: 100,
     height: 50,
-    borderRadius: 25,
+    borderRadius: 15,
     backgroundColor: "#41b555",
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
   },
   textoEspecialidade: {
     fontSize: 12,

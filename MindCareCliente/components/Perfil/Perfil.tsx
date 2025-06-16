@@ -159,7 +159,7 @@ export default function Perfil({navigation, route}){
                     <Text style={styles.text}>Lista de consultas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.menu2, {backgroundColor: cormenu2}]} onPress={() =>{ Funcaobotao2(); setOpcaoSelecionada('profissional')}}>
-                    <Text style={styles.text}>Lista de Psicologos</Text>
+                    <Text style={styles.text}>Seus Profissionais</Text>
                 </TouchableOpacity>
             </View>
             {/* Exibir Conteúdo da seleção */}

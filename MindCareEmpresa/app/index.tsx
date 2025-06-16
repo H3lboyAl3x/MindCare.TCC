@@ -4,7 +4,6 @@ import IniciarSessao from "@/components/TelaInicio/IniciarSessao";
 import Navegacao2 from "@/components/Navegacao2";
 import Pacientes from "@/components/Paciente/Pacientes";
 import Paciente from "@/components/Paciente/Paciente";
-import DetalhesPaciente from "@/components/Paciente/DetalhesPaciente";
 import MarcarConsultap from "@/components/Consulta/MarcarConsultap";
 import ExibirInformacaop from "@/components/Perfil/ExibirInformacao";
 import AnalisarConsultasp from "@/components/Consulta/AnalisarConsultasp";
@@ -35,7 +34,6 @@ export default function HomeScreen() {
       <Stack.Screen name="MarcarConsultap" component={MarcarConsultap} options={{ headerShown: false }}/>
       <Stack.Screen name="Pacientes" component={Pacientes} options={{ headerShown: false }}/>
       <Stack.Screen name="Paciente" component={Paciente} options={{ headerShown: false }}/>
-      <Stack.Screen name="DetalhesPaciente" component={DetalhesPaciente} options={{ headerShown: false }}/>
       <Stack.Screen name="ExibirInformacaop" component={ExibirInformacaop} options={{ headerShown: false }}/>
       <Stack.Screen name="AnalisarConsultasp" component={AnalisarConsultasp} options={{ headerShown: false }}/>
       <Stack.Screen name="AdiarConsultap" component={AdiarConsultap} options={{ headerShown: false }}/>

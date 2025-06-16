@@ -91,16 +91,6 @@ export default function Paciente({ navigation, route }) {
                         <Text style={styles.nome}>{nome}</Text>
                         <Text style={styles.info}>Email: {email}</Text>
                         <Text style={styles.info}>Telefone: {telefone}</Text>
-
-                        <TouchableOpacity
-                            style={{ marginTop: 10 }}
-                            onPress={() =>
-                                navigation.navigate('DetalhesPaciente', {
-                                    id, nome, email, telefone, datanascimento
-                                })}
-                        >
-                            <Ionicons name="create-outline" size={20} color="#4CD964" />
-                        </TouchableOpacity>
                     </View>
 
                     <View style={{

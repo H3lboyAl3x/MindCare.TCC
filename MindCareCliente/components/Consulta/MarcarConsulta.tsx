@@ -63,7 +63,7 @@ export default function MarcarConsulta({ navigation, route }) {
               status: "Pendente",
               link: `https://meet.jit.si/${idpaci + idpro}`,
             });
-            await axios.post(`${getUrl()}/MindCare/API/enviar-sms`, {
+            await axios.post(`${getUrl()}/MindCare/API/enviar-sms01`, {
               nome1: nome,
               nome2: `Paciente ${nomep}`,
               dia: response.data.data,

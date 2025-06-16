@@ -100,15 +100,6 @@ export default function Perfil01({ navigation, route }) {
           <Text style={styles.text}>Email: {email}</Text>
           <Text style={styles.text}>Telefone: {telefone}</Text>
 
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => navigation.navigate('DetalhesProfissional', {
-              id, nome, email, telefone, datanascimento, experiencia, areaTrabalho
-            })}
-          >
-            <Ionicons name="create-outline" size={20} color="#4CD964" />
-          </TouchableOpacity>
-
           <View style={[styles.buttons]}>
             <TouchableOpacity style={styles.button} onPress={CriarConversa}>
               <Text style={styles.buttonText}>Enviar Mensagem</Text>
@@ -162,10 +153,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#555',
     marginVertical: 2,
-  },
-  iconButton: {
-    marginTop: 10,
-    alignSelf: 'flex-start'
   },
   buttons: {
     marginTop: 20,

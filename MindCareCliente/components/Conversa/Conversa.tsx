@@ -64,7 +64,7 @@ export default function Conversa({ navigation, route }) {
   }, [id]);
     return (
       <View style={styles.container}>
-        <Text style={{backgroundColor: '#4CD964', color: '#20613d', fontSize: 15, textAlign: 'center'}}>{sos}</Text>
+        <Text style={{backgroundColor: '#2E8B57', color: '#20613d', fontSize: 15, textAlign: 'center'}}>{sos}</Text>
         <FlatList
           style={styles.Inf}
           data={conversas}
@@ -75,8 +75,8 @@ export default function Conversa({ navigation, route }) {
                 style={styles.pessoa}
                 onPress={() => navigation.navigate("Mensagem", { idchats: item.id, nome: item.nome, id })}>
                 <Text style={[styles.textp, { color: "#20613d", fontSize: 19 }]}>{item.nome}</Text>
-                <Text style={[styles.textp, { color: "#e6e6e6" }]}>{item.ultimaMensagem}</Text>
-                <Text style={[styles.textp, { color: "#e6e6e6", fontSize: 12, textAlign: "right" }]}>
+                <Text style={[styles.textp, { color: "#c0c0c0" }]}>{item.ultimaMensagem}</Text>
+                <Text style={[styles.textp, { color: "#c0c0c0", fontSize: 12, textAlign: "right" }]}>
                   {item.hora}
                 </Text>
               </TouchableOpacity>
@@ -91,10 +91,9 @@ export default function Conversa({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4CD964",
+    backgroundColor: "#2E8B57",
   },
   pessoa: {
-    padding: 10,
     backgroundColor: "#fff",
     height: 80,
     borderRadius: 20,
@@ -107,6 +106,7 @@ const styles = StyleSheet.create({
     color: "#4CD964" 
   },
   Inf: {
-    backgroundColor: "#4CD964",
+    backgroundColor: "#2E8B57",
+    padding: 10,
   },
 });

@@ -29,7 +29,7 @@ export default function AnalisarConsultas({ navigation, route }) {
     };
 
     const entrarNaChamada = () => {
-        if (link && dataConsulta.toString().split("T")[0] === pegarData() || horaConsulta <= pegarData()) {
+        if (link && dataConsulta.toString().split("T")[0] === pegarData() || horaConsulta >= pegarData()) {
             Alert.alert(
                 'Antes de iniciar a consulta...',
                 'Certifique-se de estar em um local tranquilo e com uma boa conexão à internet. Ao ingressar, você passará por uma tabela de seleção. Por favor, selecione a opção "Aguardar por anfitrião" e aguarde a entrada do profissional. Caso o profissional não esteja presente após 20 minutos de espera, entre em contato com o suporte para assistência.',
@@ -56,7 +56,7 @@ export default function AnalisarConsultas({ navigation, route }) {
             <Text style={styles.consultaText}>Data: {formattedDate}     |     Hora: {formattedTime}</Text>
             <View style={styles.Vbotao}>
                 <TouchableOpacity style={styles.botao} onPress={Adiarconsulta}>
-                    <Text style={styles.buttonText}>Adiar</Text>
+                    <Text style={styles.buttonText}>Remarcar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.botao} onPress={entrarNaChamada}>
                     <Ionicons name="videocam" size={width * 0.05} color="#7EBF42" />
@@ -81,9 +81,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     logo: {
-        width: width * 0.5,
-        height: width * 0.5,
-        borderRadius: width * 0.25,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
         alignSelf: 'center',
         marginBottom: height * 0.04,
     },

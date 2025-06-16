@@ -15,24 +15,22 @@ export default function Navegacao({ route }) {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: '#e0e0e0',
-        tabBarStyle: {
-          height: 50,
-          width: '100%',
-        },
-        tabBarItemStyle: {
-          marginHorizontal: 0
-        },
-        tabBarBackground: () => (
-          <LinearGradient
-            colors= {['#20613d', '#20613d']}
-            style={{ flex: 1 }}
-          />
-        ),
-        tabBarLabel: undefined,
-      }}
-    >
+        tabBarActiveTintColor: '#20613d',
+        tabBarInactiveTintColor: '#fff',
+        tabBarStyle: {height: 55},
+        tabBarBackground: () => (<LinearGradient colors= {['#4CD964', '#4CD964']} style={{ flex: 1 }}/>),
+      }}>
+      <Tab.Screen
+        name="Profissionais"
+        component={Profissionais}
+        initialParams={{ idu: id, nomeu: nome, telefoneu: telefone, emailu: email, passwordu: password, datanascimentou: datanascimento, generou: genero  }}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="people-outline" size={size} color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
       <Tab.Screen
         name="Conversas"
         component={Conversa}
@@ -44,17 +42,7 @@ export default function Navegacao({ route }) {
           headerShown: false,
         }}
       />
-      <Tab.Screen
-        name="Profissionais"
-        component={Profissionais}
-        initialParams={{ idu: id, nomeu: nome, telefoneu: telefone, emailu: email, passwordu: password, datanascimentou: datanascimento, generou: genero  }}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people-outline" size={size} color={color} />
-          ),
-          headerShown: false
-        }}
-      />
+      
       <Tab.Screen
         name="Consulta"
         component={Consulta}
@@ -72,7 +60,7 @@ export default function Navegacao({ route }) {
         initialParams={{ id, nome, telefone, email, password, datanascimento, genero }}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-circle-outline" size={20} color={color} />
+            <Ionicons name="person-circle-outline" size={size} color={color} />
           ),
           headerShown: false
         }}
