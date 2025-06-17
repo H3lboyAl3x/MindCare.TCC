@@ -147,15 +147,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
+    textAlign: 'center'
   },
   text: {
     fontSize: 16,
     color: '#555',
     marginVertical: 2,
+    textAlign: 'center'
   },
   buttons: {
     marginTop: 20,
     gap: 10,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginBottom: 5
   },
   button: {
     backgroundColor: '#4CD964',

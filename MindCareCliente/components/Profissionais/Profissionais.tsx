@@ -154,44 +154,7 @@ export default function Profissionais({ navigation, route }) {
             )}
           />
         </View>
-
-        {/* Profissionais */}
-        <View>
-          <Text style={styles.Textpro}>Profissionais que ja o acompanham</Text>
-          {loading ? (
-            <ActivityIndicator size={50} color="#34C759" />
-          ) : (
-            <FlatList
-              data={profissionaisCFiltrados}
-              keyExtractor={(item) => `${item.id}-${item.nome}-${item.areaT}`}
-              horizontal
-              renderItem={({ item }) => (
-                <TouchableOpacity style={[styles.card, {backgroundColor: '#fff', borderWidth: 1,}]} onPress={() => navigation.navigate("Proficional", {
-                  idu: idu, nomeu: nomeu, telefoneu: telefoneu, emailu:emailu, passwordu: passwordu, datanascimentou: datanascimentou, generou: generou ,
-                  id: item.id,
-                  nome: item.nome,
-                  email: item.email,
-                  telefone: item.telefone,
-                  datanascimento: item.datanascimento,
-                  experiencia: item.tempoexperiencia,
-                  areaTrabalho: item.areaT,
-                })}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
-                      style={styles.avatar}/>
-                    <View>
-                      <Text style={[styles.nome, {fontSize: 16, color: '#000',}]}>{item.nome}</Text>
-                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Área: {item.areaT}</Text>
-                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Experiência: {item.tempoexperiencia} anos</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              )}
-            />
-          )}
-          <Text style={{textAlign: 'center'}}>{sos}</Text>
-        </View>
-
+        
         {/* Profissionais */}
         <View>
           <Text style={styles.Textpro}>Nossos Profissionais</Text>
@@ -240,9 +203,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     color: '#000',
     height: 40,
-    marginLeft: 5,
     justifyContent: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
   },
   especialidades: {
     textAlign: "center",

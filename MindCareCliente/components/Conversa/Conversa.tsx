@@ -148,19 +148,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     color: '#000',
     height: 40,
-    marginLeft: 5,
     justifyContent: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
   },
   pessoa: {
     backgroundColor: "#fff",
-    height: 80,
+    height: 65,
     borderRadius: 20,
     marginHorizontal: 5,
     alignSelf: 'center',
     width: '98%',
-    marginBottom: 5,
-    borderTopWidth: 1
+    marginTop: 5,
+    borderBottomWidth: 1
   },
   avatar: {
     width: 50,

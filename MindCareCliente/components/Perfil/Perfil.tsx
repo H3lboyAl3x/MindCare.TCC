@@ -136,6 +136,7 @@ export default function Perfil({navigation, route}){
 
     return(
         <View style={styles.container}>
+            <Text style={styles.titulo}>Perfil</Text>
             <View style={styles.header}/>
             <View style={[styles.card]}>
                 <View>
@@ -154,7 +155,7 @@ export default function Perfil({navigation, route}){
                         datanascimento: datanascimento,
                         genero: genero,
                     })}>
-                    <Ionicons style={{backgroundColor: 'white', borderRadius: 50}} name="ellipsis-horizontal-circle-outline" size={40} color={'black'} />
+                    <Text style={{color: '#c0c0c0',}}>Ver Detalhes</Text>
                 </TouchableOpacity>
                 </View>
             </View>
@@ -184,11 +185,19 @@ export default function Perfil({navigation, route}){
                 data={profissionaisC}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View style={styles.card1}>
+                    <TouchableOpacity style={styles.card1} onPress={() => navigation.navigate("Proficional", {
+                        idu: id, nomeu: nome, telefoneu: telefone, emailu: email, passwordu: password, datanascimentou: datanascimento, generou: genero ,
+                        id: item.id,
+                        nome: item.nome,
+                        email: item.email,
+                        telefone: item.telefone,
+                        datanascimento: item.datanascimento,
+                        experiencia: item.tempoexperiencia,
+                        areaTrabalho: item.areaT,})}>
                         <Text style={[styles.nome, {fontSize: 16}]}>{item.nome}</Text>
                         <Text style={styles.nome}>{item.areaT}</Text>
                         <Text style={styles.nome}>Experiecia: {item.tempoexperiencia}</Text>
-                    </View>
+                    </TouchableOpacity>
                 )}/>
             )}
         </View>
@@ -199,8 +208,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#EEF3F8',
     },
+    titulo: {
+        fontSize: 25,
+        backgroundColor: '#EEF3F8',
+        color: '#000',
+        height: 40,
+        justifyContent: 'center',
+        fontWeight: 'bold',
+        borderBottomWidth: 1,
+        marginHorizontal: 5,
+    },
     header: {
-        height: 150,
+        height: 100,
         backgroundColor: '#C3D5DC',
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12,

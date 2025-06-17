@@ -150,9 +150,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     color: '#000',
     height: 40,
-    marginLeft: 5,
     justifyContent: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
   },
   logo: {
     width: 140,
