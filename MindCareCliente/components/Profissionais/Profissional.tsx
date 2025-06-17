@@ -85,7 +85,7 @@ export default function Perfil01({ navigation, route }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#EEF3F8' }}>
-      <View style={styles.header} />
+      <View style={styles.header}/>
 
       <View style={[styles.card]}>
         <Image
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 20,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },

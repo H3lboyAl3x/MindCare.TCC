@@ -103,7 +103,7 @@ export default function Consulta({ navigation, route }) {
             source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
             style={styles.logo}
           />
-          <Text style={{ textAlign: "center", marginTop: 30, color: "#fff" }}>
+          <Text style={{ textAlign: "center", marginTop: 30, color: "#000" }}>
             Marque uma consulta para começar sua jornada de bem-estar!
           </Text>
         </View>
@@ -143,15 +143,16 @@ export default function Consulta({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#2E8B57",
+    backgroundColor: "#fff",
   },
   titulo: {
     fontSize: 25,
-    marginBottom: 10,
-    backgroundColor: "#4CD964",
-    color: "#fff",
+    backgroundColor: '#fff',
+    color: '#000',
     height: 40,
-    textAlign: "center",
+    marginLeft: 5,
+    justifyContent: 'center',
+    fontWeight: 'bold'
   },
   logo: {
     width: 140,
@@ -174,6 +175,6 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   Inf: {
-    backgroundColor: "#2E8B57",
+    backgroundColor: "#fff",
   },
 });

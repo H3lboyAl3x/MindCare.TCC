@@ -34,7 +34,7 @@ export default function Navegacao({ route }) {
       <Tab.Screen
         name="Conversas"
         component={Conversa}
-        initialParams={{ id: id}}
+        initialParams={{ id, nome, telefone, email, password, datanascimento, genero }}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="chatbox-outline" size={size} color={color} />

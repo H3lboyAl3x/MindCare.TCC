@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator, Image
 } from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
@@ -24,6 +24,7 @@ export default function Profissionais({ navigation, route }) {
   const [tempex, settempex] = useState(Number);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [sos, setsos] = useState('');
   
 
   const Listafuncionario = async () => {
@@ -76,6 +77,10 @@ export default function Profissionais({ navigation, route }) {
             const areapResponse = await axios.get<AreaProf>(`${getUrl()}/MindCare/API/areaprof/idpro/${proResponse.data.id}`);
             const AreaP = areapResponse.data;
             const areatResponse = await axios.get<AreaTrabalho>(`${getUrl()}/MindCare/API/areatrabalho/${AreaP.idarea}`);
+            if(!Numero.idprof)
+            {
+              setsos('Nenhum profissional acompanham voce ainda.');
+            }
             return {
               id: Numero.idprof,
               nome: userResponse.data.nome,
@@ -130,7 +135,7 @@ export default function Profissionais({ navigation, route }) {
   );
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Profissionais</Text>
+      <Text style={styles.titulo}>Área e Profissionais</Text>
       <View style={styles.Inf}>
         {/* Especialidades */}
         <Text style={styles.especialidades}>Especialidades</Text>
@@ -159,8 +164,9 @@ export default function Profissionais({ navigation, route }) {
             <FlatList
               data={profissionaisCFiltrados}
               keyExtractor={(item) => `${item.id}-${item.nome}-${item.areaT}`}
+              horizontal
               renderItem={({ item }) => (
-                <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("Proficional", {
+                <TouchableOpacity style={[styles.card, {backgroundColor: '#fff', borderWidth: 1,}]} onPress={() => navigation.navigate("Proficional", {
                   idu: idu, nomeu: nomeu, telefoneu: telefoneu, emailu:emailu, passwordu: passwordu, datanascimentou: datanascimentou, generou: generou ,
                   id: item.id,
                   nome: item.nome,
@@ -170,18 +176,25 @@ export default function Profissionais({ navigation, route }) {
                   experiencia: item.tempoexperiencia,
                   areaTrabalho: item.areaT,
                 })}>
-                  <Text style={[styles.nome, {fontSize: 16}]}>{item.nome}</Text>
-                  <Text style={styles.nome}>Área: {item.areaT}</Text>
-                  <Text style={styles.nome}>Experiência: {item.tempoexperiencia} anos</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
+                      style={styles.avatar}/>
+                    <View>
+                      <Text style={[styles.nome, {fontSize: 16, color: '#000',}]}>{item.nome}</Text>
+                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Área: {item.areaT}</Text>
+                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Experiência: {item.tempoexperiencia} anos</Text>
+                    </View>
+                  </View>
                 </TouchableOpacity>
               )}
             />
           )}
+          <Text style={{textAlign: 'center'}}>{sos}</Text>
         </View>
 
         {/* Profissionais */}
         <View>
-          <Text style={styles.Textpro}>Outros Profissionais</Text>
+          <Text style={styles.Textpro}>Nossos Profissionais</Text>
           {loading ? (
             <ActivityIndicator size={50} color="#34C759" />
           ) : (
@@ -189,7 +202,7 @@ export default function Profissionais({ navigation, route }) {
               data={profissionaisFiltrados}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
-                <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("Proficional", {
+                <TouchableOpacity style={[styles.card, {backgroundColor: '#fff',}]} onPress={() => navigation.navigate("Proficional", {
                   idu: idu, nomeu: nomeu, telefoneu: telefoneu, emailu:emailu, passwordu: passwordu, datanascimentou: datanascimentou, generou: generou ,
                   id: item.id,
                   nome: item.nome,
@@ -199,9 +212,14 @@ export default function Profissionais({ navigation, route }) {
                   experiencia: item.tempoexperiencia,
                   areaTrabalho: item.areaT,
                 })}>
-                  <Text style={[styles.nome, {fontSize: 16}]}>{item.nome}</Text>
-                  <Text style={styles.nome}>Área: {item.areaT}</Text>
-                  <Text style={styles.nome}>Experiência: {item.tempoexperiencia} anos</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+                    <View>
+                      <Text style={[styles.nome, {fontSize: 16, color: '#000',}]}>{item.nome}</Text>
+                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Área: {item.areaT}</Text>
+                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Experiência: {item.tempoexperiencia} anos</Text>
+                    </View>
+                  </View>
                 </TouchableOpacity>
               )}
             />
@@ -215,19 +233,28 @@ export default function Profissionais({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4CD964",
+    backgroundColor: "#fff",
   },
   titulo: {
-    fontSize: 25,
-    backgroundColor: '#4CD964',
-    color: '#fff',
+    fontSize: 24,
+    backgroundColor: '#fff',
+    color: '#000',
     height: 40,
-    textAlign: 'center'
+    marginLeft: 5,
+    justifyContent: 'center',
+    fontWeight: 'bold'
   },
   especialidades: {
     textAlign: "center",
     fontSize: 15,
-    color: "#2E8B57",
+    color: "#c0c0c0",
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   scrollEspecialidades: {
     paddingHorizontal: 10,
@@ -240,7 +267,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
     borderRadius: 15,
-    backgroundColor: "#41b555",
+    backgroundColor: "#4CD964",
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 5,
@@ -271,7 +298,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   Inf: {
-      backgroundColor: '#2E8B57',
+      backgroundColor: '#fff',
       height: '100%',
   },
 });

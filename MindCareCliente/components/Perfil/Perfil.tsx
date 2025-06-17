@@ -136,10 +136,15 @@ export default function Perfil({navigation, route}){
 
     return(
         <View style={styles.container}>
-            <View style={styles.quadro}/>
-            <View style={styles.bfoto}>
+            <View style={styles.header}/>
+            <View style={[styles.card]}>
                 <View>
-                    <Ionicons style={styles.foto} name="person-circle-outline" size={100} color={'black'} ></Ionicons>
+                    <Image
+                        source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
+                        style={styles.avatar}/>
+                    <View style={[styles.infoContainer]}>
+                        <Text style={styles.name}>{nome}</Text>
+                    </View>
                     <TouchableOpacity style={styles.encrenagem} onPress={() => navigation.navigate('ExibirInformacao', {
                         id: id,
                         nome: nome,
@@ -152,7 +157,6 @@ export default function Perfil({navigation, route}){
                     <Ionicons style={{backgroundColor: 'white', borderRadius: 50}} name="ellipsis-horizontal-circle-outline" size={40} color={'black'} />
                 </TouchableOpacity>
                 </View>
-                <Text style={{textAlign: 'center', fontSize: 17}}>{nome}</Text>
             </View>
             <View style={styles.Menu}>
                 <TouchableOpacity style={[styles.menu1, {backgroundColor: cormenu1}]} onPress={() =>{ Funcaobotao1(); setOpcaoSelecionada('consulta')}}>
@@ -168,7 +172,7 @@ export default function Perfil({navigation, route}){
                 data={consultas}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View style={styles.card}>
+                    <View style={styles.card1}>
                         <Text style={[styles.nome, {fontSize: 16}]}>Consulta</Text>
                         <Text style={styles.nome}>{item.data.toString().split("T")[0]}</Text>
                         <Text style={styles.nome}>Estado: {item.status}</Text>
@@ -180,7 +184,7 @@ export default function Perfil({navigation, route}){
                 data={profissionaisC}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View style={styles.card}>
+                    <View style={styles.card1}>
                         <Text style={[styles.nome, {fontSize: 16}]}>{item.nome}</Text>
                         <Text style={styles.nome}>{item.areaT}</Text>
                         <Text style={styles.nome}>Experiecia: {item.tempoexperiencia}</Text>
@@ -193,50 +197,48 @@ export default function Perfil({navigation, route}){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#EEF3F8',
     },
-    quadro: {
-        marginTop: 40,
-        backgroundColor: '#4CD964',
-        width: '95%',
-        height: 200,
-        alignSelf: 'center',
-        borderRadius: 25,
+    header: {
+        height: 150,
+        backgroundColor: '#C3D5DC',
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        marginBottom: -75,
+        zIndex: -1,
+    },
+    card: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        paddingHorizontal: 20,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 6,
+        elevation: 3,
+        marginTop: 0,
     },
     avatar: {
         width: 140,
         height: 140,
         borderRadius: 70,
         backgroundColor: "#e7fbe6",
+        alignSelf: 'center',
     },
-    bfoto: {
-        position: "absolute", 
-        top: 180,
-        left: 140,
-        width: 115,
-        height: 115,
-        borderColor: '#4CD964',
-        borderWidth: 2,
-        borderRadius: 60,
+    infoContainer: {
+        marginTop: 10,
     },
-    foto: {
-        width: 110,
-        height: 110,
-        borderRadius: 60,
-        borderWidth: 5,
-        borderColor: 'white',
-        backgroundColor: 'white',
+    name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 8,
+        textAlign: 'center',
     },
     encrenagem: {
-        position: "absolute", 
-        top: 35,
-        left: 130,
-        borderRadius: 25,
-        borderWidth: 2,
-        borderColor: '#4CD964'
+        alignSelf: 'center',
     },
     Menu: {
-        marginTop: 130,
+        marginTop: 10,
         backgroundColor: '#EEEEEF',
         width: '100%',
         height: 50,
@@ -257,17 +259,18 @@ const styles = StyleSheet.create({
         height: '90%',
         width: '50%'
     },
+    card1: {
+        padding: 5,
+        backgroundColor: "#4CD964",
+        height: 70,
+        borderRadius: 20,
+        marginTop: 5,
+        marginHorizontal: 5,
+    },
     text: {
         paddingTop: 10,
         textAlign: 'center',
         fontSize: 15,
-    },
-    card: {
-        backgroundColor: "#4CD964",
-        padding: 10,
-        borderRadius: 20,
-        marginTop: 5,
-        marginHorizontal: 5,
     },
     nome: {
         fontSize: 13,
