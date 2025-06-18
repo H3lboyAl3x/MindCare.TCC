@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Platform, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
-// Definindo as interfaces para tipos de dados
 interface Consultas {
   id: number;
   data: string;
@@ -46,7 +45,7 @@ export default function Perfil01({ navigation, route }) {
   const [consultas, setConsultas] = useState<Consultas[]>();
   const [pacienteC, setPacienteC] = useState<PacienteComNome[]>([]);
 
-  // Função para buscar as consultas e pacientes
+  //Buscar as consultas e pacientes
   const ListaConsulta = async () => {
     try {
       const consultaResponde = await axios.get<Consultas[]>(`${getUrl()}/MindCare/API/consultas`);
@@ -106,10 +105,15 @@ export default function Perfil01({ navigation, route }) {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.quadro} />
-      <View style={styles.bfoto}>
+      <Text style={styles.titulo}>Perfil</Text>
+      <View style={styles.header}/>
+      <View style={styles.card}>
         <View>
-          <Ionicons style={styles.foto} name="person-circle-outline" size={100} color={'black'} />
+          <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+          <View style={[styles.infoContainer]}>
+            <Text style={styles.name}>{nome}</Text>
+            <Text style={styles.name}>{espe}</Text>
+          </View>
           <TouchableOpacity
             style={styles.encrenagem}
             onPress={() => navigation.navigate('ExibirInformacaop', {
@@ -123,11 +127,9 @@ export default function Perfil01({ navigation, route }) {
                 espe: espe, 
                 expe: expe, 
             })}>
-            <Ionicons style={{ backgroundColor: 'white', borderRadius: 50 }} name="ellipsis-horizontal-circle-outline" size={40} color={'black'} />
+            <Text style={{color: '#c0c0c0',}}>Ver Detalhes</Text>
           </TouchableOpacity>
         </View>
-        <Text style={{ textAlign: 'center', fontSize: 17 }}>{nome}</Text>
-        <Text style={{ textAlign: 'center', fontSize: 13 }}>{espe}</Text>
       </View>
       <View style={styles.Menu}>
         <TouchableOpacity style={[styles.menu1, { backgroundColor: cormenu1 }]} onPress={() => { Funcaobotao1(); setOpcaoSelecionada('consulta'); }}>
@@ -142,7 +144,7 @@ export default function Perfil01({ navigation, route }) {
           data={consultas}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <View style={styles.card}>
+            <View style={styles.card1}>
               <Text style={[styles.nome, { fontSize: 16 }]}>Consulta</Text>
               <Text style={styles.nome}>{item.data.toString().split("T")[0]}</Text>
               <Text style={styles.nome}>Estado: {item.status}</Text>
@@ -156,7 +158,7 @@ export default function Perfil01({ navigation, route }) {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity
-             style={styles.card}
+             style={styles.card1}
              onPress={() => navigation.navigate('PP', {idp: item.id})}>
               <Text style={[styles.nome, { fontSize: 16 }]}>{item.nome}</Text>
               <Text style={styles.nome}>{item.email}</Text>
@@ -171,50 +173,58 @@ export default function Perfil01({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#EEF3F8',
     },
-    quadro: {
-        marginTop: 40,
-        backgroundColor: '#4CD964',
-        width: '95%',
-        height: 200,
-        alignSelf: 'center',
-        borderRadius: 25,
+    titulo: {
+        fontSize: 25,
+        backgroundColor: '#EEF3F8',
+        color: '#000',
+        height: 40,
+        justifyContent: 'center',
+        fontWeight: 'bold',
+        borderBottomWidth: 1,
+        marginHorizontal: 5,
+    },
+    header: {
+        height: 100,
+        backgroundColor: '#C3D5DC',
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        marginBottom: -75,
+        zIndex: -1,
+    },
+    card: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        paddingHorizontal: 20,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 6,
+        elevation: 3,
+        marginTop: 0,
     },
     avatar: {
         width: 140,
         height: 140,
         borderRadius: 70,
         backgroundColor: "#e7fbe6",
+        alignSelf: 'center',
     },
-    bfoto: {
-        position: "absolute", 
-        top: 180,
-        left: 120,
-        width: 115,
-        height: 115,
-        borderColor: '#4CD964',
-        borderWidth: 2,
-        borderRadius: 60,
+    infoContainer: {
+        marginTop: 10,
     },
-    foto: {
-        width: 110,
-        height: 110,
-        borderRadius: 60,
-        borderWidth: 5,
-        borderColor: 'white',
-        backgroundColor: 'white',
+    name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 8,
+        textAlign: 'center',
     },
     encrenagem: {
-        position: "absolute", 
-        top: 35,
-        left: 130,
-        borderRadius: 25,
-        borderWidth: 2,
-        borderColor: '#4CD964'
+        alignSelf: 'center',
     },
     Menu: {
-        marginTop: 130,
+        marginTop: 10,
         backgroundColor: '#EEEEEF',
         width: '100%',
         height: 50,
@@ -235,45 +245,22 @@ const styles = StyleSheet.create({
         height: '90%',
         width: '50%'
     },
+    card1: {
+        padding: 5,
+        backgroundColor: "#4CD964",
+        height: 70,
+        borderRadius: 20,
+        marginTop: 5,
+        marginHorizontal: 5,
+    },
     text: {
         paddingTop: 10,
         textAlign: 'center',
         fontSize: 15,
     },
-    card: {
-        backgroundColor: "#4CD964",
-        padding: 10,
-        borderRadius: 20,
-        marginTop: 5,
-        marginHorizontal: 5,
-    },
     nome: {
         fontSize: 13,
         fontWeight: "bold",
         color: '#fff',
-    },
-    profileHeader: {
-        backgroundColor: '#fff',
-        padding: 20,
-        borderRadius: 8,
-        marginTop: -50,
-        marginHorizontal: 'auto',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    profileInfo: {
-        marginLeft: 20,
-    },
-    profileName: {
-        fontSize: 24,
-    },
-    editIcon: {
-        marginTop: 10,
     },
 });

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet, Platform } 
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet, Platform, Image } 
 from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
@@ -21,11 +21,26 @@ interface SMS {
   hora: string;
 }
 
-export default function Mensagem({ route }) {
+export default function Mensagem({ route, navigation }) {
   const { idchats, nome, id } = route.params;
 
   const [sms, setSms] = useState<SMS[]>([]);
   const [mensagem, setMensagem] = useState("");
+
+  const pegarData = () => {
+    const agora = new Date();
+    const dia = agora.getDate().toString().padStart(2, "0");
+    const mes = (agora.getMonth() + 1).toString().padStart(2, "0");
+    const ano = agora.getFullYear();
+    return `${ano}-${mes}-${dia}`;
+  };
+
+  const pegarHora = () => {
+    const agora = new Date();
+    const horas = agora.getHours().toString().padStart(2, "0");
+    const minutos = agora.getMinutes().toString().padStart(2, "0");
+    return `${horas}:${minutos}`;
+  };
 
   const buscarMensagens = async () => {
     try {
@@ -67,9 +82,10 @@ export default function Mensagem({ route }) {
     }
   };
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView style={styles.container} behavior={"height"}>
       <View style={styles.titulo}>
         <Ionicons style={{marginLeft: 5}} name="arrow-back-outline" size={25} color={"#20613d"} onPress={() => navigation.goBack()}/>
+        <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
         <Text style={styles.nomep}>{nome}</Text>
       </View>
 
@@ -88,7 +104,7 @@ export default function Mensagem({ route }) {
       <View style={styles.escrever}>
         <TextInput 
           placeholder="Mensagem" 
-          placeholderTextColor={"#c0c0c0"}
+          placeholderTextColor={"#fff"}
           style={styles.ti} 
           value={mensagem} 
           onChangeText={setMensagem} 
@@ -105,17 +121,24 @@ export default function Mensagem({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#B3D0B3",
+    backgroundColor: "#E4E4E5",
   },
   titulo: {
     fontSize: 25,
     marginBottom: 5,
     backgroundColor: '#4CD964',
     height: 50,
-    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     alignSelf: 'center',
     flexDirection: 'row'
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginLeft: 5
   },
   nomep: {
     fontSize: 25,
@@ -124,29 +147,29 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flexGrow: 1,
-    backgroundColor: "#B3D0B3",
+    backgroundColor: "#E4E4E5",
     paddingHorizontal: 10,
     paddingVertical: 10,
 
   },
   escrever: {
     height: 80,
-    backgroundColor: Platform.OS === 'web' ? "#dbdbdb" : "#2E8B57",
+    backgroundColor: "#E4E4E5",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    paddingBottom: 25,
+    paddingBottom: 25
   },
   ti: {
     height: 50,
     width: "85%",
-    backgroundColor: "#fff",
+    backgroundColor: "#BEBEBE",
     borderRadius: 25,
     paddingHorizontal: 10,
     color: "#000",
   },
   icon: {
-    backgroundColor: "#20613d",
+    backgroundColor: "#4CD964",
     height: 45,
     width: 45,
     alignItems: "center",

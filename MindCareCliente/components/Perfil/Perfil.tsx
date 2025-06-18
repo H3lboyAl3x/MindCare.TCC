@@ -140,9 +140,7 @@ export default function Perfil({navigation, route}){
             <View style={styles.header}/>
             <View style={[styles.card]}>
                 <View>
-                    <Image
-                        source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
-                        style={styles.avatar}/>
+                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
                     <View style={[styles.infoContainer]}>
                         <Text style={styles.name}>{nome}</Text>
                     </View>

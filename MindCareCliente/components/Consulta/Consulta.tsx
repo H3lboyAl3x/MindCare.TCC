@@ -104,7 +104,7 @@ export default function Consulta({ navigation, route }) {
             style={styles.logo}
           />
           <Text style={{ textAlign: "center", marginTop: 30, color: "#000" }}>
-            Marque uma consulta para começar sua jornada de bem-estar!
+            Marque uma consulta para dar anvaco sua jornada de bem-estar!
           </Text>
         </View>
       ) : (
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 15,
     backgroundColor: "#4CD964",
-    height: 100,
+    height: 80,
     borderRadius: 20,
     marginTop: 5,
     marginHorizontal: 5,

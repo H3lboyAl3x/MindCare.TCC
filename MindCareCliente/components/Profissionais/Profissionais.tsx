@@ -122,17 +122,6 @@ export default function Profissionais({ navigation, route }) {
     return () => clearInterval(intervalo);
   }, [idu]);
 
-  const renderProfissional = (item: ProfissionalComNome) => (
-    <TouchableOpacity style={[styles.card, {width: 230}]} onPress={() => navigation.navigate("Proficional", {
-      idu: idu, nomeu: nomeu, telefoneu: telefoneu, emailu:emailu, passwordu: passwordu, datanascimentou: datanascimentou, generou: generou , id: item.id, nome: item.nome, email: item.email,
-      telefone: item.telefone, datanascimento: item.datanascimento,
-      experiencia: item.tempoexperiencia, areaTrabalho: item.areaT
-    })}>
-      <Text style={styles.nome}>{item.nome}</Text>
-      <Text style={styles.nome}>Área: {item.areaT}</Text>
-      <Text style={styles.nome}>Experiência: {item.tempoexperiencia} anos</Text>
-    </TouchableOpacity>
-  );
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Área e Profissionais</Text>
@@ -165,7 +154,7 @@ export default function Profissionais({ navigation, route }) {
               data={profissionaisFiltrados}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
-                <TouchableOpacity style={[styles.card, {backgroundColor: '#fff',}]} onPress={() => navigation.navigate("Proficional", {
+                <TouchableOpacity style={[styles.card]} onPress={() => navigation.navigate("Proficional", {
                   idu: idu, nomeu: nomeu, telefoneu: telefoneu, emailu:emailu, passwordu: passwordu, datanascimentou: datanascimentou, generou: generou ,
                   id: item.id,
                   nome: item.nome,
@@ -178,9 +167,9 @@ export default function Profissionais({ navigation, route }) {
                   <View style={{flexDirection: 'row'}}>
                     <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
                     <View>
-                      <Text style={[styles.nome, {fontSize: 16, color: '#000',}]}>{item.nome}</Text>
-                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Área: {item.areaT}</Text>
-                      <Text style={[styles.nome, {color: '#c0c0c0',}]}>Experiência: {item.tempoexperiencia} anos</Text>
+                      <Text style={[styles.nome]}>{item.nome}</Text>
+                      <Text style={[styles.nome]}>Área: {item.areaT}</Text>
+                      <Text style={[styles.nome]}>Experiência: {item.tempoexperiencia} anos</Text>
                     </View>
                   </View>
                 </TouchableOpacity>

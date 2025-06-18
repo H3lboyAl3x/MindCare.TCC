@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -107,56 +100,11 @@ export default function Progresso({ navigation, route }) {
       nome: nome,
     });
   };
+  
 
-  const entrarNaChamada = async (consulta: Consulta) => {
-    if (consulta.link && consulta.data.toString().split("T")[0] === pegarData()) {
-      alert(
-        "Antes de iniciar a consulta, certifique-se de estar em um local tranquilo e com uma boa conexão à internet. Ao ingressar, você passará por uma tabela de seleção. Por favor, selecione a opção 'Você é o anfitrião', adicione a sua conta e aguarde a entrada do Paciente."
-      );
-      navigation.navigate("VideoCall", {
-        link: consulta.link,
-        hora: consulta.hora,
-        data: consulta.data,
-      });
-    } else {
-      alert("A consulta ainda não está disponível, por favor entre no horário marcado.");
-    }
-  };
-
-  const Apagarconsulta = async (consulta: Consulta) => {
-    try {
-      await axios.delete(`${getUrl()}/MindCare/API/consultas/${consulta.id}`);
-      navigation.goBack();
-    } catch (error) {
-      console.error("Erro ao cancelar consulta:", error);
-    }
-  };
-
-  const Confirmarconsulta = async (consulta: Consulta) => {
-    try {
-      await axios.put(`${getUrl()}/MindCare/API/consultas/${consulta.id}`, {
-        ...consulta,
-        status: "Concluida",
-        link: "",
-      });
-      navigation.goBack();
-    } catch (error) {
-      console.error("Erro ao confirmar consulta:", error);
-    }
-  };
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Consultas</Text>
-      {modoAdiar && selecionada ? (
-        <AdiarConsultaInline
-          selecionada={selecionada}
-          idp={idp}
-          setModoAdiar={setModoAdiar}
-          buscarConsultas={buscarConsultas}
-          setSelecionada={setSelecionada}
-        />
-      ) : consultas.length === 0 ? (
+  const renderLista = () => (
+    <>
+      {consultas.length === 0 ? (
         <View>
           <Image
             source={{
@@ -164,8 +112,8 @@ export default function Progresso({ navigation, route }) {
             }}
             style={styles.logo}
           />
-          <Text style={{ textAlign: "center", marginTop: 30, color: "#fff" }}>
-            Marque uma consulta para começar a sua jornada de bem-estar!
+          <Text style={{ textAlign: "center", marginTop: 30, color: "#000" }}>
+            Marque uma consulta ou espere o paciente marcar uma!
           </Text>
         </View>
       ) : (
@@ -188,93 +136,31 @@ export default function Progresso({ navigation, route }) {
           )}
         />
       )}
+    </>
+  )
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Consultas</Text>
+      {renderLista()}
     </View>
   );
 }
 
-const AdiarConsultaInline = ({
-  selecionada,
-  idp,
-  setModoAdiar,
-  buscarConsultas,
-  setSelecionada,
-}: AdiarProps) => {
-  const [datamarcacao, setDatan] = useState<Date | null>(
-    selecionada?.data ? new Date(selecionada.data) : null
-  );
-  const [tempomarcacao, settempo] = useState<Date | null>(
-    selecionada?.hora ? new Date(`1970-01-01T${selecionada.hora}`) : null
-  );
-
-  const Adiar = async () => {
-    if (!datamarcacao || !tempomarcacao) {
-      alert("Por favor, selecione a data e a hora antes de marcar a consulta.");
-      return;
-    }
-
-    const formattedDate = datamarcacao.toISOString().split("T")[0];
-    const formattedTime = tempomarcacao.toTimeString().slice(0, 5);
-
-    try {
-      await axios.put(`${getUrl()}/MindCare/API/consultas/${selecionada.id}`, {
-        data: formattedDate,
-        hora: formattedTime,
-        idpaci: selecionada.idpaci,
-        idpro: idp,
-        status: "Pendente",
-      });
-
-      await buscarConsultas();
-      setSelecionada({ ...selecionada, data: formattedDate, hora: formattedTime });
-      setModoAdiar(false);
-    } catch (error) {
-      console.error("Erro ao adiar consulta:", error);
-    }
-  };
-
-  return (
-    <View style={{ flex: 1, padding: 20, backgroundColor: "#fff", justifyContent: "center" }}>
-      <Text style={{ fontSize: 24, textAlign: "center", color: "#4CD964" }}>Adiar Consulta</Text>
-
-      <DateTimePicker
-        value={datamarcacao || new Date()}
-        mode="date"
-        display="default"
-        onChange={(_, date) => date && setDatan(date)}
-      />
-
-      <DateTimePicker
-        value={tempomarcacao || new Date()}
-        mode="time"
-        display="default"
-        onChange={(_, time) => time && settempo(time)}
-      />
-
-      <TouchableOpacity style={styles.botao} onPress={Adiar}>
-        <Text style={styles.buttonText}>Confirmar Adiamento</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => setModoAdiar(false)}
-        style={[styles.botao, { marginTop: 10, backgroundColor: "#ccc" }]}>
-        <Text style={[styles.buttonText, { color: "#4CD964" }]}>Cancelar</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#2E8B57",
+    backgroundColor: "#fff",
   },
   titulo: {
     fontSize: 25,
-    marginBottom: 10,
-    backgroundColor: "#4CD964",
-    color: "#fff",
+    backgroundColor: '#fff',
+    color: '#000',
     height: 40,
-    textAlign: "center",
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
   },
   logo: {
     width: 140,
@@ -287,7 +173,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 15,
     backgroundColor: "#4CD964",
-    height: 100,
+    height: 80,
     borderRadius: 20,
     marginTop: 5,
     marginHorizontal: 5,
@@ -297,21 +183,6 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   Inf: {
-    backgroundColor: "#2E8B57",
-  },
-  botao: {
-    width: 200,
-    height: 50,
-    marginHorizontal: 25,
-    backgroundColor: "#4CD964",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    borderRadius: 50,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
+    backgroundColor: "#fff",
   },
 });

@@ -1,5 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { CommonActions } from "@react-navigation/native";
 
 export default function ExibirInformacao({ navigation, route }) {
@@ -17,7 +16,7 @@ export default function ExibirInformacao({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <Ionicons style={styles.perfil} name="person-circle-outline" size={100} color={'white'} />
+            <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
             <View style={styles.Inf}>
                 <Text style={styles.text}>Nome: {nome}</Text>
                 <Text style={styles.text}>Telefone: {telefone}</Text>
@@ -43,6 +42,13 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         width: 100,
         height: 100,
+    },
+    avatar: {
+        width: 110,
+        height: 110,
+        borderRadius: 70,
+        backgroundColor: "#e7fbe6",
+        alignSelf: 'center',
     },
     Inf: {
         width: '100%',

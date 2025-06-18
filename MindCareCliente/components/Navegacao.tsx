@@ -17,16 +17,16 @@ export default function Navegacao({ route }) {
       screenOptions={{
         tabBarActiveTintColor: '#20613d',
         tabBarInactiveTintColor: '#fff',
-        tabBarStyle: {height: 55},
-        tabBarBackground: () => (<LinearGradient colors= {['#4CD964', '#4CD964']} style={{ flex: 1 }}/>),
+        tabBarStyle: {height: 70, backgroundColor: '#4CD964'},
+        tabBarLabelStyle: {fontSize: 9}
       }}>
       <Tab.Screen
-        name="Profissionais"
+        name="Área e Profissionais"
         component={Profissionais}
         initialParams={{ idu: id, nomeu: nome, telefoneu: telefone, emailu: email, passwordu: password, datanascimentou: datanascimento, generou: genero  }}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people-outline" size={size} color={color} />
+            <Ionicons name="people-outline" size={22} color={color} />
           ),
           headerShown: false,
         }}
@@ -37,7 +37,7 @@ export default function Navegacao({ route }) {
         initialParams={{ id, nome, telefone, email, password, datanascimento, genero }}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbox-outline" size={size} color={color} />
+            <Ionicons name="chatbox-outline" size={22} color={color} />
           ),
           headerShown: false,
         }}
@@ -49,7 +49,7 @@ export default function Navegacao({ route }) {
         initialParams={{ id }}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="videocam-outline" size={size} color={color} />
+            <Ionicons name="videocam-outline" size={22} color={color} />
           ),
           headerShown: false
         }}
@@ -60,7 +60,7 @@ export default function Navegacao({ route }) {
         initialParams={{ id, nome, telefone, email, password, datanascimento, genero }}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-circle-outline" size={size} color={color} />
+            <Ionicons name="person-circle-outline" size={22} color={color} />
           ),
           headerShown: false
         }}

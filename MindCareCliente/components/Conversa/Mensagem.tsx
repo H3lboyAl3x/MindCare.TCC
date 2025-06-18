@@ -39,7 +39,7 @@ export default function Mensagem({ route, navigation }) {
     const horas = agora.getHours().toString().padStart(2, "0");
     const minutos = agora.getMinutes().toString().padStart(2, "0");
     return `${horas}:${minutos}`;
-  };  
+  };
 
   const buscarMensagens = async () => {
     try {

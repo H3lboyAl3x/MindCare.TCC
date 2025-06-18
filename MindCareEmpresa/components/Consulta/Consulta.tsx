@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator, Platform, ScrollView,
-  Animated
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Image} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 
@@ -114,53 +110,24 @@ export default function Consulta({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4CD964",
+    backgroundColor: "#fff",
   },
   titulo: {
-      fontSize: 25,
-      marginBottom: 10,
-      backgroundColor: '#4CD964',
-      color: '#fff',
-      height: 40,
-      textAlign: 'center'
-  },
-  especialidades: {
-    textAlign: "center",
-    fontSize: 15,
-    color: "#2E8B57",
-    marginBottom: 5,
-  },
-  scrollEspecialidades: {
-    paddingHorizontal: 10,
-  },
-  bolinhaContainer: {
-    alignItems: "center",
-    marginHorizontal: 10,
-  },
-  bolinha: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "#41b555",
-  },
-  textoEspecialidade: {
-    fontSize: 12,
-    textAlign: "center",
-    color: '#fff'
-  },
-  Textpro: {
-    fontSize: 15,
-    color: "white",
-    backgroundColor: "#41b555",
-    padding: 5,
-    textAlign: "center",
-    marginBottom: 5,
+    fontSize: 25,
+    backgroundColor: '#fff',
+    color: '#000',
+    height: 40,
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
   },
   card: {
+    padding: 15,
     backgroundColor: "#4CD964",
-    padding: 10,
+    height: 70,
     borderRadius: 20,
-    marginBottom: 5,
+    marginTop: 5,
     marginHorizontal: 5,
   },
   nome: {
@@ -169,7 +136,6 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   Inf: {
-      backgroundColor: '#2E8B57',
-      height: '100%',
+      backgroundColor: '#fff',
   },
 });

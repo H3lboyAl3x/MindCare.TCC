@@ -16,7 +16,7 @@ type Consulta = {
 };
 
 export default function MarcarConsulta({ navigation, route }) {
-    const { idpaci, idpro, nome, nomep telefone } = route.params;
+    const { idpaci, idpro, nome, nomep, telefone } = route.params;
 
     const [datamarcacao, setDatan] = useState<Date | null>(null);
     const [tempomarcacao, settempo] = useState<Date | null>(null);
@@ -65,7 +65,7 @@ export default function MarcarConsulta({ navigation, route }) {
               status: "Pendente",
               link: `https://meet.jit.si/${idpaci + idpro}`,
             });
-            await axios.post(`${getUrl()}/MindCare/API/enviar-sms`, {
+            await axios.post(`${getUrl()}/MindCare/API/enviar-sms01`, {
               nome1: nome,
               nome2: `Profissional ${nomep}`,
               dia: response.data.data,

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
+import { Ionicons } from "@expo/vector-icons";
 
 type Consulta = {
   id: number;
@@ -113,7 +114,10 @@ export default function PP({ route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Progresso de Consultas do: {nome}</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Ionicons style={{marginLeft: 5}} name="arrow-back-outline" size={25} color={"#20613d"} onPress={() => navigation.goBack()}/>
+        <Text style={styles.titulo}>Progresso de Consultas do: {nome}</Text>
+      </View>
       {renderLista()}
     </View>
   );
@@ -122,23 +126,17 @@ export default function PP({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Platform.OS === 'web' ? "#fff" : "#2E8B57",
+    backgroundColor: "#fff",
   },
   titulo: {
-    fontSize: 25,
-    marginBottom: 10,
-    backgroundColor: "#4CD964",
-    color: "#fff",
+    fontSize: 20,
+    backgroundColor: '#fff',
+    color: '#000',
     height: 40,
-    textAlign: "center",
-  },
-  logo: {
-    width: 140,
-    height: 140,
-    borderRadius: 20,
-    backgroundColor: "#e7fbe6",
-    marginTop: 50,
-    alignSelf: "center",
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
   },
   card: {
     padding: 15,
@@ -153,36 +151,6 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   Inf: {
-    backgroundColor: Platform.OS === 'web' ? "#fff" : "#2E8B57",
-  },
-  Vbotao: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "center",
-    marginTop: 200,
-  },
-  botao: {
-    width: 200,
-    height: 50,
-    marginHorizontal: 25,
-    backgroundColor: "#4CD964",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    borderRadius: 50,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  input: {
-    height: 50,
-    borderColor: "#4CD964",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    justifyContent: "center",
+    backgroundColor: "#fff",
   },
 });

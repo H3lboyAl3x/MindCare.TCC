@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
+import { getUrl } from "@/app/utils/url";
 
 const { width, height } = Dimensions.get("window");
 
@@ -17,6 +19,15 @@ export default function AnalisarConsultas({ navigation, route }) {
 
     const formattedDate = new Date(dataConsulta).toISOString().split("T")[0];
     const formattedTime = horaConsulta.slice(0, 5);
+
+    const Apagarconsulta = async () => {
+        try {
+            await axios.delete(`${getUrl()}/MindCare/API/consultas/${idConsulta}`);
+            navigation.goBack();
+        } catch (error) {
+            console.error("Erro ao cancelar consulta:", error);
+        }
+    };
 
     const Adiarconsulta = () => {
         navigation.navigate("AdiarConsulta", {
@@ -63,6 +74,7 @@ export default function AnalisarConsultas({ navigation, route }) {
                     <Text style={styles.buttonText}> Entrar</Text>
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity style={[styles.botao, {alignSelf: 'center', marginTop: 5}]} onPress={() => Apagarconsulta()}><Text style={[styles.buttonText, { color: '#fa393d' }]}>Cancelar</Text></TouchableOpacity>
         </View>
     );
 }

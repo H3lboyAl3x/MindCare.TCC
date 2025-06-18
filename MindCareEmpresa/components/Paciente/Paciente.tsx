@@ -1,16 +1,5 @@
 import React from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Image,
-    Platform,
-    Alert,
-    useWindowDimensions,
-    ScrollView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, Alert, useWindowDimensions, ScrollView } from "react-native";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
@@ -18,6 +7,11 @@ interface Chat {
     id: number;
     idpaci: number;
     idpro: number;
+}
+interface NumeroP {
+  id: number;
+  idprof: number;
+  idpac: number;
 }
 
 export default function Paciente({ navigation, route }) {
@@ -28,10 +22,12 @@ export default function Paciente({ navigation, route }) {
     const CriarConversa = async () => {
         try {
             const chats = (await axios.get<Chat[]>(`${getUrl()}/MindCare/API/chats`)).data;
+            const numerops = (await axios.get<NumeroP[]>(`${getUrl()}/MindCare/API/numeroP`)).data;
             const chatExistente = chats.find(chat => chat.idpaci === id && chat.idpro === idu);
+            const numeropExistente = numerops.find((numeroP: NumeroP) => numeroP.idpac === id && numeroP.idprof === idu);
 
             if (chatExistente) {
-                navigation.navigate(Platform.OS === 'web' ? "Navegacao1" : 'Mensagem', {
+                navigation.navigate('Mensagem', {
                     idchats: chatExistente.id,
                     nome,
                     id: idu
@@ -42,10 +38,13 @@ export default function Paciente({ navigation, route }) {
                     idpro: idu
                 });
 
-                await axios.post(`${getUrl()}/MindCare/API/numeroP`, {
+               if(!numeropExistente)
+               {
+                 await axios.post(`${getUrl()}/MindCare/API/numeroP`, {
                     idprof: idu,
                     idpac: id
                 });
+               }
 
                 navigation.navigate(Platform.OS === 'web' ? "Navegacao1" : 'Mensagem', {
                     idchats: chatCriado.data.id,
@@ -74,8 +73,7 @@ export default function Paciente({ navigation, route }) {
             <View style={[styles.container, { padding: isLargeScreen ? 60 : 20 }]}>
                 <View style={{ height: 150, backgroundColor: '#C3D5DC', borderTopLeftRadius: 8, borderTopRightRadius: 8 }} />
 
-                <View style={[
-                    styles.card,
+                <View style={[styles.card,
                     {
                         flexDirection: isLargeScreen ? 'row' : 'column',
                         gap: isLargeScreen ? 30 : 20,
@@ -93,12 +91,7 @@ export default function Paciente({ navigation, route }) {
                         <Text style={styles.info}>Telefone: {telefone}</Text>
                     </View>
 
-                    <View style={{
-                        width: isLargeScreen ? 220 : "100%",
-                        alignSelf: isLargeScreen ? "center" : "stretch",
-                        gap: 10,
-                        marginTop: isLargeScreen ? 0 : 20
-                    }}>
+                    <View style={[styles.buttons]}>
                         <TouchableOpacity style={styles.botao} onPress={CriarConversa}>
                             <Text style={styles.btext}>Enviar Mensagem</Text>
                         </TouchableOpacity>
@@ -143,14 +136,21 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#777',
     },
+    buttons: {
+        marginTop: 20,
+        gap: 10,
+        flexDirection: 'row',
+        alignSelf: 'center',
+        marginBottom: 5
+    },
     botao: {
-        backgroundColor: '#14AE5C',
-        height: 50,
+        backgroundColor: '#4CD964',
+        paddingVertical: 12,
+        paddingHorizontal: 25,
         borderRadius: 25,
         alignItems: 'center',
-        justifyContent: 'center',
-        width: "100%",
-    },
+        alignSelf: 'flex-start',
+        },
     btext: {
         fontSize: 16,
         color: 'white',

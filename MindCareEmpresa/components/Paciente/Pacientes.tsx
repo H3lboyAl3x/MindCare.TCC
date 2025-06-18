@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator, Platform, ScrollView,
-  Animated
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Image} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 
@@ -125,9 +121,14 @@ export default function Pacientes({ navigation, route }) {
                   nomep: nomep,
                 })}
               >
-                <Text style={styles.nome}>{item.nome}</Text>
-                <Text style={styles.nome}>Telefone: {item.telefone}</Text>
-                <Text style={styles.nome}>Nascimento: {item.datanascimento}</Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+                  <View>
+                    <Text style={styles.nome}>{item.nome}</Text>
+                    <Text style={styles.nome}>Telefone: {item.telefone}</Text>
+                    <Text style={styles.nome}>Nascimento: {item.datanascimento}</Text>
+                  </View>
+                </View>
               </TouchableOpacity>
             }
           />
@@ -140,47 +141,24 @@ export default function Pacientes({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4CD964",
+    backgroundColor: "#fff",
   },
   titulo: {
-      fontSize: 25,
-      marginBottom: 10,
-      backgroundColor: '#4CD964',
-      color: '#fff',
-      height: 40,
-      textAlign: 'center'
+    fontSize: 24,
+    backgroundColor: '#fff',
+    color: '#000',
+    height: 40,
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
   },
-  especialidades: {
-    textAlign: "center",
-    fontSize: 15,
-    color: "#2E8B57",
-    marginBottom: 5,
-  },
-  scrollEspecialidades: {
-    paddingHorizontal: 10,
-  },
-  bolinhaContainer: {
-    alignItems: "center",
-    marginHorizontal: 10,
-  },
-  bolinha: {
+  avatar: {
     width: 50,
     height: 50,
-    borderRadius: 25,
-    backgroundColor: "#41b555",
-  },
-  textoEspecialidade: {
-    fontSize: 12,
-    textAlign: "center",
-    color: '#fff'
-  },
-  Textpro: {
-    fontSize: 15,
-    color: "white",
-    backgroundColor: "#41b555",
-    padding: 5,
-    textAlign: "center",
-    marginBottom: 5,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   card: {
     backgroundColor: "#4CD964",
@@ -195,7 +173,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   Inf: {
-      backgroundColor: '#2E8B57',
+      backgroundColor: '#fff',
       height: '100%',
   },
 });
