@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Platform, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
@@ -24,6 +23,7 @@ interface Usuario {
    email: string;
    telefone: string;
    datanascimento: string;
+   genero: string;
 }
 
 interface ProfissionalComNome {
@@ -32,6 +32,7 @@ interface ProfissionalComNome {
    email: string;
    telefone: string;
    datanascimento: string;
+   genero: string;
    areaT: string;
    tempoexperiencia: number;
 }
@@ -57,7 +58,6 @@ export default function Perfil01({navigation, route}){
     const {id, nome, telefone, email, password, datanascimento, genero} = route.params;
     const [opcaoSelecionada, setOpcaoSelecionada] = useState<"consulta" | "profissional">("consulta");
     const [consultas, setconsultas] = useState<Consultas[]>();
-    const [tempex, settempex] = useState(Number);
     const [profissionaisC, setProfissionaisC] = useState<ProfissionalComNome[]>([]);
 
     //Buscar Consultas e Profissionais
@@ -74,13 +74,9 @@ export default function Perfil01({navigation, route}){
                 listaProfissionaisC.map(async (Numero) => {
                 try {
                     const proResponse = await axios.get<Profissional>(`${getUrl()}/MindCare/API/profissionais/${Numero.idprof}`);
-                    settempex(proResponse.data.tempoexperiencia);
-
                     const userResponse = await axios.get<Usuario>(getUrl()+"/MindCare/API/users/"+proResponse.data.id);
-
                     const areapResponse = await axios.get<AreaProf>(`${getUrl()}/MindCare/API/areaprof/idpro/${proResponse.data.id}`);
                     const AreaP = areapResponse.data;
-
                     const areatResponse = await axios.get<AreaTrabalho>(`${getUrl()}/MindCare/API/areatrabalho/${AreaP.idarea}`)
 
         ;            return {
@@ -89,6 +85,7 @@ export default function Perfil01({navigation, route}){
                     email: userResponse.data.email,
                     telefone: userResponse.data.telefone,
                     datanascimento: userResponse.data.datanascimento ? userResponse.data.datanascimento.toString().split("T")[0] : "",
+                    genero: userResponse.data.genero,
                     areaT: areatResponse.data.area,
                     tempoexperiencia: proResponse.data.tempoexperiencia,
                     };
@@ -100,8 +97,9 @@ export default function Perfil01({navigation, route}){
                     email: "Desconhecido",
                     telefone: "Desconhecido",
                     datanascimento: "Desconhecido",
+                    genero: "Desconhecido",
                     areaT: "Desconhecida",
-                    tempoexperiencia: tempex,
+                    tempoexperiencia: 0,
                     };
                 }
                 })
@@ -155,9 +153,7 @@ export default function Perfil01({navigation, route}){
                     <View>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                             <Image
-                                source={{
-                                  uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
-                                }}
+                                source={require('../../../assets/images/person.png')}
                                 style={styles.avatar}
                               />
                 <View style={{ marginLeft: 20 }}>
@@ -169,7 +165,6 @@ export default function Perfil01({navigation, route}){
                                                     nome: nome,
                                                     telefone: telefone,
                                                     email: email,
-                                                    password: password,
                                                     datanascimento: datanascimento,
                                                     genero: genero,
                                                     idadm: 0,
@@ -177,7 +172,7 @@ export default function Perfil01({navigation, route}){
                                                     passwordadm: ''
                                                 })}
                                             >
-                                                <Ionicons name="create-outline" size={20} color="#4CD964" />
+                                                <Text style={{color: '#c0c0c0'}}>Ver Detalhes</Text>
                                             </TouchableOpacity>
                                         </View>
                         </View>

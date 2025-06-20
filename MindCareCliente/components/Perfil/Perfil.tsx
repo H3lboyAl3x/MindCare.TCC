@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Platform, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from "react-native";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
@@ -140,7 +139,7 @@ export default function Perfil({navigation, route}){
             <View style={styles.header}/>
             <View style={[styles.card]}>
                 <View>
-                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+                    <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
                     <View style={[styles.infoContainer]}>
                         <Text style={styles.name}>{nome}</Text>
                     </View>

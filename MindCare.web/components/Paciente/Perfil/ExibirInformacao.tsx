@@ -1,11 +1,11 @@
-import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Platform, Image} from "react-native";
 import { getUrl } from "@/app/utils/url";
+import { CommonActions } from "@react-navigation/native";
 
 export default function ExibirInformacao({ navigation, route }) {
-    const { id, nome, telefone, email, password, datanascimento, genero, idadm, emailadm, passwordadm  } = route.params;
+    const { id, nome, telefone, email, datanascimento, genero, idadm, emailadm, passwordadm  } = route.params;
 
     const Eliminarconta = async () => {
         const baseUrl = `${getUrl()}/MindCare/API`;
@@ -90,7 +90,7 @@ export default function ExibirInformacao({ navigation, route }) {
     {
         return (
             <View style={styles.container}>
-                <Ionicons style={styles.perfil} name="person-circle-outline" size={100} color={'white'} />
+                <Image source={require('../../../assets/images/person.png')} style={styles.perfil}/>
                 <View style={styles.Inf}>
                     <Text style={styles.text}>Nome: {nome}</Text>
                     <Text style={styles.text}>Telefone: {telefone}</Text>
@@ -107,7 +107,6 @@ export default function ExibirInformacao({ navigation, route }) {
                                         nomee: nome,
                                         telefonee: telefone,
                                         emaile: email,
-                                        passworde: password,
                                         datanascimentoe: datanascimento,
                                         generoe: genero,
                                     })}>
@@ -119,6 +118,21 @@ export default function ExibirInformacao({ navigation, route }) {
                                 <Text style={{ fontSize: 20, color: 'white' }}>Deletar Conta</Text>
                             </TouchableOpacity>
                         </View>
+                    )}
+                    {idadm === 0 &&(
+                        <TouchableOpacity 
+                            style={styles.EP} 
+                                onPress={() => 
+                                    navigation.dispatch(
+                                        CommonActions.reset({
+                                            index: 0,
+                                            routes: [{name: 'IniciarSessao'},
+                                            ],
+                                        })
+                                    )
+                                }>
+                            <Text style={{ fontSize: 20, color: 'white' }}>Terminar Sessao</Text>
+                        </TouchableOpacity>
                     )}
                 </View>
             </View>

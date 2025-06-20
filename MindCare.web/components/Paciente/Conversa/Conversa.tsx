@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Platform,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import {View,Text,StyleSheet,FlatList,TouchableOpacity,Platform,useWindowDimensions,Image} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 import Mensagem from "@/components/Mensagem/Mensagem";
@@ -33,7 +24,6 @@ export default function Conversa({ navigation, route }) {
   const isWeb = Platform.OS === "web";
   const { width } = useWindowDimensions();
   const [sos, setSos] = useState('');
-  const [idprof, setIdprof] = useState(null);
 
   const fetchConversas = async () => {
     try {
@@ -49,7 +39,6 @@ export default function Conversa({ navigation, route }) {
         chats.map(async (chat: { idpro: any; id: any; }) => {
           try {
             const prof = await axios.get(`${getUrl()}/MindCare/API/profissionais/${chat.idpro}`);
-            setIdprof(prof.data.id);
             const user = await axios.get(`${getUrl()}/MindCare/API/users/${prof.data.id}`);
             const mensagens = await axios.get(`${getUrl()}/MindCare/API/mensagens/idchat/${chat.id}`);
             const lista = mensagens.data;
@@ -89,9 +78,7 @@ export default function Conversa({ navigation, route }) {
       return (
         <View>
           <Image
-            source={{
-              uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png",
-            }}
+            source={require('../../../assets/images/mente.png')}
             style={styles.logo}
           />
           <Text style={{ textAlign: "center", marginTop: 30, color: Platform.OS === 'web'? "#000" : "#fff" }}>{sos}</Text>
@@ -113,11 +100,14 @@ export default function Conversa({ navigation, route }) {
                   : navigation.navigate("Mensagem", { idchats: item.id, nome: item.nome, id })
               }
             >
-              <Text style={[styles.textp, { color: "#fff" }]}>{item.nome}</Text>
-              <Text style={[styles.textp, { color: "#e6e6e6" }]}>{item.ultimaMensagem}</Text>
-              <Text style={[styles.textp, { color: "#e6e6e6", fontSize: 12, textAlign: "right" }]}>
-                {item.hora}
-              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <Image source={require('../../../assets/images/person.png')} style={styles.avatar}/>
+                <View>
+                  <Text style={[styles.textp, { color: "#fff" }]}>{item.nome}</Text>
+                  <Text style={[styles.textp, { color: "#e6e6e6" }]}>{item.ultimaMensagem}</Text>
+                  <Text style={[styles.textp, { color: "#e6e6e6", fontSize: 12}]}>{item.hora}</Text>
+                </View>
+              </View>
             </TouchableOpacity>
           );
 
@@ -195,6 +185,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 5,
     marginHorizontal: 5,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   textp: {
     fontSize: 15,

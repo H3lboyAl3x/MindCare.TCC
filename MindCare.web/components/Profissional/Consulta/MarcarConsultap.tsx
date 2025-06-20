@@ -1,5 +1,4 @@
 import { getUrl } from "@/app/utils/url";
-import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import axios from "axios";
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert, Platform } from "react-native";
@@ -19,8 +18,6 @@ export default function MarcarConsulta({ navigation, route }) {
 
     const [datamarcacao, setDatan] = useState<Date | null>(null);
     const [tempomarcacao, settempo] = useState<Date | null>(null);
-    const [showDatePicker, setShowDatePicker] = useState(false);
-    const [showTimePicker, setShowTimePicker] = useState(false);
 
     const pegarData = () => {
         const agora = new Date();
@@ -56,7 +53,7 @@ export default function MarcarConsulta({ navigation, route }) {
 
           if (!consultasfiltrada[0])
           {
-            const response = await axios.post(`${getUrl()}/MindCare/API/consultas`, {
+            await axios.post(`${getUrl()}/MindCare/API/consultas`, {
               data: formattedDate,
               hora: formattedTime,
               idpaci: idpaci,
@@ -72,21 +69,7 @@ export default function MarcarConsulta({ navigation, route }) {
         } catch (error) {
             console.error("Erro ao marcar consulta:", error);
         }
-
     };
-  const minimumDate = pegarData();
-  const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    if (selectedDate) {
-      setDatan(selectedDate);
-    }
-    setShowDatePicker(false);
-  };
-  const onTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
-    if (selectedTime) {
-      settempo(selectedTime);
-    }
-    setShowTimePicker(false);
-  };
 
   if(Platform.OS === "web"){
     return (

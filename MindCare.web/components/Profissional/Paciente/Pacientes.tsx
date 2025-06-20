@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator, Platform, ScrollView,
-  Animated
-} from "react-native";
+import {View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Platform, ScrollView} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 
@@ -96,6 +92,7 @@ export default function Pacientes({ navigation, route }) {
         datanascimento: item.datanascimento,
       })}
     >
+      <Image source={require('../../../assets/images/person.png')} style={styles.avatar}/>
       <Text style={styles.nome}>{item.nome}</Text>
       <Text style={styles.nome}>Telefone: {item.telefone}</Text>
       <Text style={styles.nome}>Nascimento: {item.datanascimento}</Text>
@@ -172,6 +169,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 5,
     marginHorizontal: 5,
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   nome: {
     fontSize: 12,

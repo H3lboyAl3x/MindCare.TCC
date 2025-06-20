@@ -95,9 +95,8 @@ export default function Consulta({ navigation, route }) {
                 onPress={() => navigation.navigate("Progresso", {
                     idp: item.id,
                 })}>
-                <Text style={styles.nome}>{item.nome}</Text>
-                <Text style={styles.nome}>Email: {item.email}</Text>
-                <Text style={styles.nome}>Telefone: {item.telefone}</Text>
+                  <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
+                  <Text style={styles.nome}>{item.nome}</Text>
               </TouchableOpacity>
             }
           />
@@ -129,9 +128,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 5,
     marginHorizontal: 5,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   nome: {
-    fontSize: 12,
+    fontSize: 15,
     fontWeight: "bold",
     color: '#fff'
   },

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, Linking, StyleSheet, Alert, Platform, ToastAndroid } from "react-native";
+import { View, Text, Image, TouchableOpacity, Linking, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Sobre({navigation}) {
@@ -8,13 +8,13 @@ export default function Sobre({navigation}) {
                 {/* Cabeçalho */}
                 <View style={stylesweb.header}>
                   <Ionicons name="arrow-back-outline" size={35} color={"#fff"} onPress={() => navigation.goBack()}/>
-                  <Image source={{ uri: "https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg" }} style={stylesweb.mainImage} />
+                  <Image source={require('../../assets/images/trevo.jpg')} style={stylesweb.mainImage} />
                   <Text style={stylesweb.title}>Bem-vindo ao Espaço Gaya</Text>
                 </View>
                   <View style={{width: '100%'}}>
                     {/* Imagem Secundária */}
                     <View style={stylesweb.imageContainer}>
-                     <Image source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }} style={stylesweb.secondaryImage} />
+                     <Image source={require('../../assets/images/mente.png')} style={stylesweb.secondaryImage} />
                     </View>
                     {/* Contato */}
                     <View style={stylesweb.contactContainer}>

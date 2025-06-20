@@ -1,35 +1,50 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator, Platform, ScrollView,
-  Animated
-  as RNView,
-  Animated,
-  Dimensions
-} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity,ActivityIndicator, Platform, ScrollView,Animated,Dimensions,Image} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 import { Ionicons } from "@expo/vector-icons";
 
-interface Profissional { id: number; tempoexperiencia: number; }
-interface Usuario { id: number; nome: string; email: string; telefone: string; datanascimento: string; }
-interface ProfissionalComNome {
-  id: number; nome: string; email: string; telefone: string;
-  datanascimento: string; areaT: string; tempoexperiencia: number;
+interface Profissional { 
+  id: number; 
+  tempoexperiencia: number; 
 }
-interface AreaTrabalho { id: number; area: string; }
-interface AreaProf { id: number; idprof: number; idarea: number; }
-interface NumeroP { id: number; idprof: number; idpac: number; }
+interface Usuario { 
+  id: number; 
+  nome: string; 
+  email: string; 
+  telefone: string; 
+  datanascimento: string; 
+}
+interface ProfissionalComNome {
+  id: number; 
+  nome: string; 
+  email: string; 
+  telefone: string;
+  datanascimento: string; 
+  areaT: string; 
+  tempoexperiencia: number;
+}
+interface AreaTrabalho { 
+  id: number; 
+  area: string; 
+}
+interface AreaProf { 
+  id: number; idprof: 
+  number; idarea: 
+  number; 
+}
+interface NumeroP { 
+  id: number; 
+  idprof: number; 
+  idpac: number; 
+}
 
 export default function Profissionais({ navigation, route }) {
   const { idu, nomeu, telefoneu, emailu, passwordu, datanascimentou, generou } = route.params;
   const [profissionais, setProfissionais] = useState<ProfissionalComNome[]>([]);
-  const [profissionaisC, setProfissionaisC] = useState<ProfissionalComNome[]>([]);
   const [especialidades, setEspecialidades] = useState<AreaTrabalho[]>([]);
-  const [tempex, settempex] = useState(Number);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [mostrarProfissionaisC, setMostrarProfissionaisC] = useState(true);
 
   const [expandido, setExpandido] = useState(false)
   const widthAnim = useRef(new Animated.Value(Platform.OS === 'web' ? 5 : 25)).current;
@@ -88,51 +103,14 @@ export default function Profissionais({ navigation, route }) {
           }
         })
       );
-
-      const NP = await axios.get<NumeroP[]>(`${getUrl()}/MindCare/API/numeroP/idpac/${idu}`);
-      const listaProfissionaisC = NP.data;
-
-      const profissionaisComNomesC: ProfissionalComNome[] = await Promise.all(
-        listaProfissionaisC.map(async (Numero) => {
-          try {
-            const proResponse = await axios.get<Profissional>(`${getUrl()}/MindCare/API/profissionais/${Numero.idprof}`);
-            settempex(proResponse.data.tempoexperiencia || 0);
-            const userResponse = await axios.get<Usuario>(getUrl() + "/MindCare/API/users/" + proResponse.data.id);
-            const areapResponse = await axios.get<AreaProf>(`${getUrl()}/MindCare/API/areaprof/idpro/${proResponse.data.id}`);
-            const AreaP = areapResponse.data;
-            const areatResponse = await axios.get<AreaTrabalho>(`${getUrl()}/MindCare/API/areatrabalho/${AreaP.idarea}`);
-            return {
-              id: Numero.idprof,
-              nome: userResponse.data.nome,
-              email: userResponse.data.email,
-              telefone: userResponse.data.telefone,
-              datanascimento: userResponse.data.datanascimento ? userResponse.data.datanascimento.toString().split("T")[0] : "",
-              areaT: areatResponse.data.area,
-              tempoexperiencia: proResponse.data.tempoexperiencia || tempex,
-            };
-          } catch {
-            return {
-              id: Numero.idprof,
-              nome: "Desconhecido", email: "Desconhecido", telefone: "Desconhecido",
-              datanascimento: "Desconhecido", areaT: "Desconhecida", tempoexperiencia: tempex
-            };
-          }
-        })
-      );
-
       setProfissionais(profissionaisComNomes);
-      setProfissionaisC(profissionaisComNomesC);
     } catch (error) {
       console.error("Erro ao buscar profissionais:", error);
     } finally {
       setLoading(false);
     }
   };
-
   const profissionaisFiltrados = profissionais.filter((profissional) =>
-    especialidadeSelecionada === null || profissional.areaT === especialidades.find(e => e.id === especialidadeSelecionada)?.area
-  );
-  const profissionaisCFiltrados = profissionaisC.filter((profissional) =>
     especialidadeSelecionada === null || profissional.areaT === especialidades.find(e => e.id === especialidadeSelecionada)?.area
   );
 
@@ -148,6 +126,7 @@ export default function Profissionais({ navigation, route }) {
       telefone: item.telefone, datanascimento: item.datanascimento,
       experiencia: item.tempoexperiencia, areaTrabalho: item.areaT
     })}>
+      <Image source={require('../../../assets/images/person.png')} style={styles.avatar}/>
       <Text style={styles.nome}>{item.nome}</Text>
       <Text style={styles.nome}>Área: {item.areaT}</Text>
       <Text style={styles.nome}>Experiência: {item.tempoexperiencia} anos</Text>
@@ -166,7 +145,7 @@ export default function Profissionais({ navigation, route }) {
             backgroundColor: '#dbdbdb',
             borderRightWidth: 1,
             borderColor: '#8c8c8c',
-            paddingTop: 20,
+            paddingTop: 70,
           }}
           {...(Platform.OS === 'web'
             ? {
@@ -174,12 +153,6 @@ export default function Profissionais({ navigation, route }) {
                 onMouseLeave: reduzir,
               }
             : {}) as any}>
-          <TouchableOpacity onPress={() => setMostrarProfissionaisC(true)} style={{ marginBottom: 10, marginTop: 50, backgroundColor:'#4CD964', width:'90%', height: 50, borderRadius: 25, alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
-            {expandido ? <Text style={{color:'#fff'}}>Profissionais que já o acompanham</Text> : <Ionicons name="people-circle-outline" size={24} color="white" />}
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setMostrarProfissionaisC(false)} style={{ marginBottom: 20, backgroundColor:'#4CD964', width:'90%', height: 50, borderRadius: 25, alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
-          {expandido ? <Text style={{color:'#fff'}}>Outros profissionais</Text> : <Ionicons name="person-circle-outline" size={24} color="white" />}
-          </TouchableOpacity>
           {expandido ? <Text style={styles.especialidades}>Especialidades</Text> : <Ionicons style={{alignSelf: 'center'}} name="medical-outline" size={24} color="#2E8B57" />}
           {especialidades.map((item) => (
             <TouchableOpacity style={{ marginBottom: 10, backgroundColor:'#4CD964', width:'90%', height: 50, borderRadius: 25, alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }} key={item.id} onPress={() => setEspecialidadeSelecionada(item.id)}>
@@ -191,7 +164,7 @@ export default function Profissionais({ navigation, route }) {
           {loading ? (
             <ActivityIndicator size={50} color="#34C759" />
           ) : (
-            (mostrarProfissionaisC ? profissionaisCFiltrados : profissionaisFiltrados).map((item) => (
+            (profissionaisFiltrados).map((item) => (
               <View key={item.id} style={{ width: 230, margin: 5,  alignItems: 'center', justifyContent: 'center'  }}>
                 {renderProfissional(item)}
               </View>
@@ -254,6 +227,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 5,
     marginHorizontal: 5,
+    alignItems: 'center'
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   nome: {
     fontSize: 12,

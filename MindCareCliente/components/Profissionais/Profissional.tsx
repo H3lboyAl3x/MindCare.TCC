@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, useWindowDimensions, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image, useWindowDimensions, ScrollView } from "react-native";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
@@ -28,7 +27,7 @@ export default function Perfil01({ navigation, route }) {
       const chats = await (await axios.get<Chat[]>(`${getUrl()}/MindCare/API/chats`)).data;
       const numerops = await (await axios.get<NumeroP[]>(`${getUrl()}/MindCare/API/numeroP`)).data;
       const numeropExistente = numerops.find((numeroP: NumeroP) => numeroP.idpac === idu && numeroP.idprof === id);
-      const chatExistente = chats.find((chat: Chat) => chat.idpaci === id && chat.idpro === idu);
+      const chatExistente = chats.find((chat: Chat) => chat.idpaci === idu && chat.idpro === id);
 
       if (chatExistente) {
         navigation.navigate('Mensagem', {
@@ -75,7 +74,7 @@ export default function Perfil01({ navigation, route }) {
 
       <View style={[styles.card]}>
         <Image
-          source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
+          source={require('../../assets/images/person.png')}
           style={styles.avatar}
         />
 
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     elevation: 3,
-    marginTop: 0,
+    marginHorizontal: 20,
   },
   avatar: {
     width: 140,

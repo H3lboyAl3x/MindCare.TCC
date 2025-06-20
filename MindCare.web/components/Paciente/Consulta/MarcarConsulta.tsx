@@ -18,14 +18,7 @@ export default function MarcarConsulta({ navigation, route }) {
 
     const [datamarcacao, setDatan] = useState<Date | null>(null);
     const [tempomarcacao, settempo] = useState<Date | null>(null);
-    const [showDatePicker, setShowDatePicker] = useState(false);
-    const [showTimePicker, setShowTimePicker] = useState(false);
-
-    const pegarData = () => {
-        const agora = new Date();
-        agora.setHours(0, 0, 0, 0); 
-        return agora;
-    };
+    
     const Marcar = async () => {
         if (!datamarcacao || !tempomarcacao) {
             Alert.alert("Por favor, selecione a data e a hora antes de marcar a consulta.");

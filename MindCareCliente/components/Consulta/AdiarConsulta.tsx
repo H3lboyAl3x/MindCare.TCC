@@ -26,7 +26,7 @@ export default function AdiarConsulta({ navigation, route }) {
         const formattedDate = datamarcacao.toISOString().split("T")[0];
         const formattedTime = tempomarcacao.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false });
         try {
-            const response = await axios.put(`${getUrl()}/MindCare/API/consultas/${idConsulta}`, {
+            await axios.put(`${getUrl()}/MindCare/API/consultas/${idConsulta}`, {
                 data: formattedDate,
                 hora: formattedTime,
                 idpaci: idpaci,

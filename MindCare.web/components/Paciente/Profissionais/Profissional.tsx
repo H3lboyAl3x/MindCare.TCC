@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, useWindowDimensions, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
@@ -26,27 +25,13 @@ export default function Perfil01({ navigation, route }) {
   const CriarConversa = async () => {
     try {
       const resposta = await axios.get<Chat[]>(`${getUrl()}/MindCare/API/chats`);
-      const response1 = await axios.get<NumeroP[]>(`${getUrl()}/MindCare/API/numeroP`);
       const chats = resposta.data;
-      const numerops = response1.data;
-
-      const numeropExistente = numerops.find((numeroP: NumeroP) => numeroP.idpac === idu && numeroP.idprof === id);
       const chatExistente = chats.find((chat: Chat) => chat.idpaci === idu && chat.idpro === id);
 
       if (chatExistente) {
-        if (Platform.OS === 'web') {
-          navigation.navigate("Navegacao1", {
-            idu, nomeu, telefoneu, emailu, passwordu, datanascimentou, generou
-          });
-        } else {
-          navigation.navigate('Mensagem', {
-            idchats: chatExistente.id,
-            nome,
-            id: idu
-          });
-        }
+        navigation.goBack();
       } else {
-        const response = await axios.post(`${getUrl()}/MindCare/API/chats`, {
+        await axios.post(`${getUrl()}/MindCare/API/chats`, {
           idpaci: idu,
           idpro: id
         });
@@ -55,18 +40,7 @@ export default function Perfil01({ navigation, route }) {
           idprof: id,
           idpac: idu
         });
-
-        if (Platform.OS === 'web') {
-          navigation.navigate("Navegacao1", {
-            idu, nomeu, telefoneu, emailu, passwordu, datanascimentou, generou
-          });
-        } else {
-          navigation.navigate('Mensagem', {
-            idchats: response.data.id,
-            nome,
-            id: idu
-          });
-        }
+        navigation.goBack();
       }
     } catch (error) {
       console.error("Erro ao criar ou buscar chat:", error);
@@ -89,7 +63,7 @@ export default function Perfil01({ navigation, route }) {
 
       <View style={[styles.card, isLargeScreen && { flexDirection: 'row', alignItems: 'flex-start' }]}>
         <Image
-          source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
+          source={require('../../../assets/images/person.png')}
           style={styles.avatar}
         />
 
@@ -99,15 +73,6 @@ export default function Perfil01({ navigation, route }) {
           <Text style={styles.text}>{experiencia} ano(s) de experiência</Text>
           <Text style={styles.text}>Email: {email}</Text>
           <Text style={styles.text}>Telefone: {telefone}</Text>
-
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => navigation.navigate('DetalhesProfissional', {
-              id, nome, email, telefone, datanascimento, experiencia, areaTrabalho
-            })}
-          >
-            <Ionicons name="create-outline" size={20} color="#4CD964" />
-          </TouchableOpacity>
 
           <View style={[styles.buttons, isLargeScreen && { flexDirection: 'row', gap: 20, marginTop: 30 }]}>
             <TouchableOpacity style={styles.button} onPress={CriarConversa}>

@@ -44,23 +44,23 @@ export default function Navegacao2({ route }) {
       }}
     >
       <Tab.Screen
-        name="Conversas"
-        component={Conversa}
-        initialParams={{ id }}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbox-outline" size={size} color={color} />
-          ),
-          headerShown: false
-        }}
-      />
-      <Tab.Screen
         name="Pacientes"
         component={Paciente}
         initialParams={{ id }}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people-outline" size={size} color={color} />
+          ),
+          headerShown: false
+        }}
+      />
+      <Tab.Screen
+        name="Conversas"
+        component={Conversa}
+        initialParams={{ id }}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbox-outline" size={size} color={color} />
           ),
           headerShown: false
         }}

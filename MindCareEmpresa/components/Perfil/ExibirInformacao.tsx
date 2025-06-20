@@ -16,7 +16,7 @@ export default function ExibirInformacaop({ navigation, route }) {
     
     return (
         <View style={styles.container}>
-            <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+            <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
             <View style={styles.Inf}>
                 <Text style={styles.text}>Nome: {nome}</Text>
                 <Text style={styles.text}>Telefone: {telefone}</Text>

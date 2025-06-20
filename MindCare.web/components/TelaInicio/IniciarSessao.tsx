@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  Platform,
-  KeyboardAvoidingView,
-  Image,
-} from "react-native";
+import {View,Text,TextInput,StyleSheet,TouchableOpacity,SafeAreaView,Platform,Image} from "react-native";
 import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 import { getUrl } from "@/app/utils/url";
@@ -108,9 +98,9 @@ export default function IniciarSessao({ navigation }) {
       <SafeAreaView style={stylesWeb.safeArea}>
         {/* Cabeçalho */}
         <View style={stylesWeb.header}>
-          <TouchableOpacity onPress={() => navigation.navigate("TelaInicio01")}>
+          <TouchableOpacity onPress={() => navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'TelaInicio01'}],}))}>
             <Image
-              source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
+              source={require('../../assets/images/mente.png')}
               style={stylesWeb.logoHeader}
             />
           </TouchableOpacity>
@@ -125,7 +115,7 @@ export default function IniciarSessao({ navigation }) {
               Aqui a tua saúde mental é prioridade. Faça login para continuar.
             </Text>
             <Image
-              source={{ uri: "https://cdn-icons-png.flaticon.com/512/4088/4088981.png" }}
+              source={require('../../assets/images/nuvem.png')}
               style={stylesWeb.leftImage}
             />
           </View>
@@ -151,8 +141,8 @@ export default function IniciarSessao({ navigation }) {
                 onChangeText={setPassword}
               />
               <Text style={stylesWeb.erro}>{espaco}</Text>
-              <TouchableOpacity onPress={iniciar}>
-                <LinearGradient colors={["#2E8B57", "#4CD964"]} style={stylesWeb.button}>
+              <TouchableOpacity style={stylesWeb.button} onPress={iniciar}>
+                <LinearGradient colors={["#2E8B57", "#4CD964"]} style={[stylesWeb.button, {width: '100%'}]}>
                   <Text style={stylesWeb.buttonText}>Entrar</Text>
                 </LinearGradient>
               </TouchableOpacity>
@@ -245,7 +235,7 @@ const stylesWeb = StyleSheet.create({
     color: "red",
   },
   button: {
-    width: "100%",
+    width: "70%",
     height: 50,
     borderRadius: 30,
     justifyContent: "center",
@@ -259,12 +249,5 @@ const stylesWeb = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
-  },
-  instagram: {
-    color: "#2E8B57",
-    marginTop: 10,
-    fontSize: 15,
-    fontWeight: "500",
-    textDecorationLine: "underline",
   },
 });

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Platform, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
-// Definindo as interfaces para tipos de dados
 interface Consultas {
   id: number;
   data: string;
@@ -24,6 +22,7 @@ interface Usuario {
   email: string;
   telefone: string;
   datanascimento: string;
+  genero: string;
 }
 
 interface PacienteComNome {
@@ -32,6 +31,7 @@ interface PacienteComNome {
   email: string;
   telefone: string;
   datanascimento: string;
+  genero: string;
 }
 
 interface NumeroP {
@@ -67,6 +67,7 @@ export default function Perfil01({ navigation, route }) {
               email: userResponse.data.email,
               telefone: userResponse.data.telefone,
               datanascimento: userResponse.data.datanascimento ? userResponse.data.datanascimento.split("T")[0] : "",
+              genero: userResponse.data.genero
             };
           } catch (error) {
             console.error(`Erro ao buscar paciente ${Numero.idpac}:`, error);
@@ -76,6 +77,7 @@ export default function Perfil01({ navigation, route }) {
               email: "Desconhecido",
               telefone: "Desconhecido",
               datanascimento: "Desconhecido",
+              genero: "Desconecido"
             };
           }
         })
@@ -111,19 +113,18 @@ export default function Perfil01({ navigation, route }) {
         <View style={{ height: 150, backgroundColor: '#C3D5DC', borderTopLeftRadius: 8, borderTopRightRadius: 8, marginTop: 40 }} />
         <View style={styles.profileHeader}>
           <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
-            }}
+            source={require('../../../assets/images/person.png')}
             style={styles.avatar}
           />
           <View style={styles.profileInfo}>
             <Text style={styles.profileName}>{nome}</Text>
             <Text style={[styles.profileName, {fontSize: 12}]}>{espe}</Text>
+            <Text style={[styles.profileName, {fontSize: 12}]}>{expe}</Text>
             <TouchableOpacity
               style={styles.editIcon}
-              onPress={() => navigation.navigate('ExibirInformacaop', { id, nome, telefone, email, password, datanascimento, genero, espe, expe, idadm: 0, emailadm: '', passwordadm: ''  })}
+              onPress={() => navigation.navigate('ExibirInformacaop', { id, nome, telefone, email, datanascimento, genero, espe, expe, idadm: 0, emailadm: '', passwordadm: ''  })}
             >
-              <Ionicons name="create-outline" size={20} color="#4CD964" />
+              <Text style={{color: '#c0c0c0'}}>Ver Detalhes</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -1,9 +1,7 @@
-import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, Linking, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, Alert } from "react-native";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
-import Consulta from "./Consulta";
 
 const { width, height } = Dimensions.get("window");
 
@@ -13,7 +11,7 @@ export default function AnalisarConsultasp({ navigation, route }) {
     const pegarData = () => {
         const agora = new Date();
         const ano = agora.getFullYear();
-        const mes = (agora.getMonth() + 1).toString().padStart(2, '0'); // +1 porque começa do zero
+        const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
         const dia = agora.getDate().toString().padStart(2, '0');
         return `${ano}-${mes}-${dia}`;
     };
@@ -75,7 +73,7 @@ export default function AnalisarConsultasp({ navigation, route }) {
         <View style={styles.container}>
             <Text style={styles.titulo}>Consultas com: {nome}</Text>
             <Image
-                source={{ uri: 'https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg' }}
+                source={require('../../assets/images/trevo.jpg')}
                 style={styles.logo}
             />
             <Text style={styles.consultaText}>Data: {formattedDate}     |     Hora: {formattedTime}</Text>

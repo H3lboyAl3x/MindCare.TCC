@@ -16,7 +16,6 @@ type Consulta = {
 export default function Consulta({ navigation, route }) {
   const { id } = route.params;
   const [consultas, setConsultas] = useState<Consulta[]>([]);
-  const [selecionada, setSelecionada] = useState<Consulta | null>(null);
   const [nome, setNome] = useState<string | null>(null);
 
   const pegarData = () => {
@@ -79,7 +78,6 @@ export default function Consulta({ navigation, route }) {
       const consultaMaisProxima = consultas.reduce((maisProxima, atual) => {
         return new Date(atual.data) < new Date(maisProxima.data) ? atual : maisProxima;
       });
-      setSelecionada(consultaMaisProxima);
       pegarprofissional(consultaMaisProxima);
     }
   }, [consultas]);
@@ -100,7 +98,7 @@ export default function Consulta({ navigation, route }) {
       {consultas.length === 0 ? (
         <View>
           <Image
-            source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
+            source={require('../../assets/images/mente.png')}
             style={styles.logo}
           />
           <Text style={{ textAlign: "center", marginTop: 30, color: "#000" }}>

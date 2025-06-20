@@ -1,16 +1,5 @@
 import React from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Image,
-    Platform,
-    Alert,
-    useWindowDimensions,
-    ScrollView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import {View,Text,StyleSheet,TouchableOpacity,Image,Platform,Alert,useWindowDimensions,ScrollView} from "react-native";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
@@ -20,11 +9,6 @@ interface Chat {
     idpro: number;
 }
 
-interface NumeroP {
-    id: number;
-    idprof: number;
-    idpac: number;
-}
 
 export default function Paciente({ navigation, route }) {
     const { idu, id, nome, email, telefone, datanascimento } = route.params;
@@ -37,11 +21,7 @@ export default function Paciente({ navigation, route }) {
             const chatExistente = chats.find(chat => chat.idpaci === id && chat.idpro === idu);
 
             if (chatExistente) {
-                navigation.navigate(Platform.OS === 'web' ? "Navegacao1" : 'Mensagem', {
-                    idchats: chatExistente.id,
-                    nome,
-                    id: idu
-                });
+                navigation.goBack();
             } else {
                 const chatCriado = await axios.post(`${getUrl()}/MindCare/API/chats`, {
                     idpaci: id,
@@ -53,11 +33,7 @@ export default function Paciente({ navigation, route }) {
                     idpac: id
                 });
 
-                navigation.navigate(Platform.OS === 'web' ? "Navegacao1" : 'Mensagem', {
-                    idchats: chatCriado.data.id,
-                    nome,
-                    id: idu
-                });
+                navigation.goBack();
             }
         } catch (error) {
             console.error("Erro ao criar ou buscar chat:", error);
@@ -71,7 +47,7 @@ export default function Paciente({ navigation, route }) {
             idpro: idu
         });
     };
-    if(Platform.OS === web)
+    if(Platform.OS === 'web')
     {
         return (
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ backgroundColor: '#EEF3F8' }}>
@@ -87,7 +63,7 @@ export default function Paciente({ navigation, route }) {
                         }
                     ]}>
                         <Image
-                            source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
+                            source={require("../../../assets/images/person.png")}
                             style={[styles.avatar, { alignSelf: isLargeScreen ? "center" : "flex-start" }]}
                         />
 
@@ -95,16 +71,6 @@ export default function Paciente({ navigation, route }) {
                             <Text style={styles.nome}>{nome}</Text>
                             <Text style={styles.info}>Email: {email}</Text>
                             <Text style={styles.info}>Telefone: {telefone}</Text>
-
-                            <TouchableOpacity
-                                style={{ marginTop: 10 }}
-                                onPress={() =>
-                                    navigation.navigate('DetalhesPaciente', {
-                                        id, nome, email, telefone, datanascimento
-                                    })}
-                            >
-                                <Ionicons name="create-outline" size={20} color="#4CD964" />
-                            </TouchableOpacity>
                         </View>
 
                         <View style={{

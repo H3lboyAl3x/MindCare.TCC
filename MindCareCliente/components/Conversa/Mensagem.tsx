@@ -84,7 +84,7 @@ export default function Mensagem({ route, navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={'height'}>
       <View style={styles.titulo}>
         <Ionicons style={{marginLeft: 5}} name="arrow-back-outline" size={25} color={"#20613d"} onPress={() => navigation.goBack()}/>
-        <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+        <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
         <Text style={styles.nomep}>{nome}</Text>
       </View>
 

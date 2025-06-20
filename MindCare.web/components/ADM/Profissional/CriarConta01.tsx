@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  SafeAreaView,
-  Image,
-} from "react-native";
+import {View,Text,TextInput,StyleSheet,TouchableOpacity,Platform,SafeAreaView,Image,} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function CriarConta01p({ navigation, route }) {
@@ -16,11 +7,10 @@ export default function CriarConta01p({ navigation, route }) {
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [espaco, setEspaco] = useState("");
 
   const gerarSenhaAleatoria = (tamanho = 6) => {
-    const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const caracteres = "abcdefghijklmnopqrstuvwxyz0123456789";
     let senha = "";
     for (let i = 0; i < tamanho; i++) {
       const indice = Math.floor(Math.random() * caracteres.length);
@@ -41,7 +31,6 @@ export default function CriarConta01p({ navigation, route }) {
     }
 
     const senhaGerada = gerarSenhaAleatoria();
-    setPassword(senhaGerada);
 
     navigation.navigate("CriarConta02p", {
       nome,
@@ -61,7 +50,7 @@ export default function CriarConta01p({ navigation, route }) {
         <View style={stylesWeb.header}>
           <TouchableOpacity onPress={() => navigation.navigate("TelaInicio01")}>
             <Image
-              source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
+              source={require('../../../assets/images/mente.png')}
               style={stylesWeb.logoHeader}
             />
           </TouchableOpacity>
@@ -76,7 +65,7 @@ export default function CriarConta01p({ navigation, route }) {
               Preencha todos os campos para registrar um profissional no MindCare.
             </Text>
             <Image
-              source={{ uri: "https://cdn-icons-png.flaticon.com/512/4088/4088981.png" }}
+              source={require('../../../assets/images/nuvem.png')}
               style={stylesWeb.leftImage}
             />
           </View>
@@ -109,8 +98,8 @@ export default function CriarConta01p({ navigation, route }) {
                 onChangeText={setEmail}
               />
               <Text style={stylesWeb.erro}>{espaco}</Text>
-              <TouchableOpacity onPress={criar1}>
-                <LinearGradient colors={["#2E8B57", "#4CD964"]} style={stylesWeb.button}>
+              <TouchableOpacity style={stylesWeb.button} onPress={criar1}>
+                <LinearGradient colors={["#2E8B57", "#4CD964"]} style={[stylesWeb.button, {width: '100%'}]}>
                   <Text style={stylesWeb.buttonText}>Criar Conta</Text>
                 </LinearGradient>
               </TouchableOpacity>
@@ -200,7 +189,7 @@ const stylesWeb = StyleSheet.create({
     color: "red",
   },
   button: {
-    width: "100%",
+    width: "70%",
     height: 50,
     borderRadius: 30,
     justifyContent: "center",

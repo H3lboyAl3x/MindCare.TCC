@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 
@@ -109,10 +108,11 @@ export default function Perfil01({ navigation, route }) {
       <View style={styles.header}/>
       <View style={styles.card}>
         <View>
-          <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+          <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
           <View style={[styles.infoContainer]}>
             <Text style={styles.name}>{nome}</Text>
-            <Text style={styles.name}>{espe}</Text>
+            <Text style={[styles.name, {fontSize: 13}]}>{espe}</Text>
+            <Text style={[styles.name, {fontSize: 13}]}>{expe}</Text>
           </View>
           <TouchableOpacity
             style={styles.encrenagem}

@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import {View,Text,StyleSheet,FlatList,TouchableOpacity,useWindowDimensions,Image,} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 
@@ -163,9 +155,7 @@ export default function Progresso({ route }) {
     return (
       <View style={{ flex: 1, backgroundColor: "#4CD964", padding: 20 }}>
         <Image
-          source={{
-            uri: "https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg",
-          }}
+          source={require('../../../assets/images/trevo.jpg')}
           style={styles.logo}
         />
         <Text style={[styles.consultaText, { backgroundColor: "#2a8c26", textAlign: "center", marginTop: 40 }]}>
@@ -196,7 +186,7 @@ export default function Progresso({ route }) {
       {consultas.length === 0 ? (
         <View>
           <Image
-            source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
+            source={require('../../../assets/images/mente.png')}
             style={styles.logo}
           />
           <Text style={{ textAlign: "center", marginTop: 30, color: "#000" }}>

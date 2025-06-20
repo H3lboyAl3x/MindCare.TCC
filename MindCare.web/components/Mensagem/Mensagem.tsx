@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet, Platform, Keyboard } 
-from "react-native";
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
 
@@ -26,8 +25,6 @@ export default function Mensagem({ route }) {
 
   const [sms, setSms] = useState<SMS[]>([]);
   const [mensagem, setMensagem] = useState("");
-  const [data, setdata] = useState("");
-  const [hora, sethora] = useState("");
 
   const pegarData = () => {
     const agora = new Date();
@@ -61,8 +58,6 @@ export default function Mensagem({ route }) {
 
   useEffect(() => {
     buscarMensagens();
-    setdata(pegarData());
-    sethora(pegarHora());
     const intervalo = setInterval(buscarMensagens, 1000);
     return () => {
       clearInterval(intervalo);
@@ -110,7 +105,7 @@ export default function Mensagem({ route }) {
             onSubmitEditing={enviarMensagem}
           />
           <TouchableOpacity style={styles.icon} onPress={enviarMensagem}>
-            <Ionicons name="send-outline" size={32} color={"#3aa64c"} />
+            <Ionicons name="send-outline" size={32} color={"#fff"} />
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -140,14 +135,14 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flexGrow: 1,
-    backgroundColor: Platform.OS === 'web' ? "#dbdbdb" : "#2E8B57",
+    backgroundColor: "#dbdbdb",
     paddingHorizontal: 10,
     paddingVertical: 10,
 
   },
   escrever: {
     height: 80,
-    backgroundColor: Platform.OS === 'web' ? "#dbdbdb" : "#2E8B57",
+    backgroundColor: "#dbdbdb",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -156,10 +151,11 @@ const styles = StyleSheet.create({
   ti: {
     height: 50,
     width: "85%",
-    backgroundColor: Platform.OS === 'web' ? "#58f573" : "#fff",
+    backgroundColor: "#c0c0c0",
     borderRadius: 25,
     paddingHorizontal: 10,
-    color: Platform.OS === 'web' ? "#000" : "#000",
+    color: "#000",
+    borderWidth: 1
   },
   icon: {
     backgroundColor: "#4CD964",

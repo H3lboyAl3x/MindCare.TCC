@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Image} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
@@ -122,7 +122,7 @@ export default function Pacientes({ navigation, route }) {
                 })}
               >
                 <View style={{flexDirection: 'row'}}>
-                  <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+                  <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
                   <View>
                     <Text style={styles.nome}>{item.nome}</Text>
                     <Text style={styles.nome}>Telefone: {item.telefone}</Text>
@@ -153,19 +153,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginHorizontal: 5,
   },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 70,
-    backgroundColor: "#e7fbe6",
-    marginRight: 5
-  },
   card: {
     backgroundColor: "#4CD964",
     padding: 10,
     borderRadius: 20,
     marginBottom: 5,
     marginHorizontal: 5,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   nome: {
     fontSize: 12,

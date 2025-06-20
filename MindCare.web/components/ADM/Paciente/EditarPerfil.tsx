@@ -2,11 +2,11 @@ import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Platform, Modal, FlatList, TextInput, SafeAreaView, Image, KeyboardAvoidingView, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Platform, Modal, FlatList, TextInput, SafeAreaView, Image } from "react-native";
 
 
 export default function EditarPerfil({navigation,route}){
-    const {ide, nomee, telefonee, emaile, passworde, datanascimentoe, generoe} = route.params;
+    const {ide, nomee, telefonee, emaile, datanascimentoe, generoe} = route.params;
     const [Nome, setnome] = useState(nomee);
     const [Telefone, settelefone] = useState(telefonee);
     const [Email, setemail] = useState(emaile);
@@ -27,10 +27,8 @@ export default function EditarPerfil({navigation,route}){
             email: Email.trim() || emaile,
             telefone: Telefone.trim() || telefonee,
             datanascimento: formattedDate,
-            passworde: passworde,
             genero: genero,
         });
-        const user = response.data
         navigation.goBack();
 
     } catch (error) {
@@ -49,7 +47,7 @@ export default function EditarPerfil({navigation,route}){
               {/* Cabeçalho */}
               <View style={stylesWeb.header}>
                 <Image
-                  source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
+                  source={require('../../../assets/images/mente.png')}
                   style={stylesWeb.logoHeader}
                 />
               </View>
@@ -60,7 +58,7 @@ export default function EditarPerfil({navigation,route}){
                 <View style={stylesWeb.left}>
                   <Text style={stylesWeb.title}>Editar Conta</Text>
                   <Image
-                    source={{ uri: "https://cdn-icons-png.flaticon.com/512/4088/4088981.png" }}
+                    source={require('../../../assets/images/nuvem.png')}
                     style={stylesWeb.leftImage}
                   />
                 </View>

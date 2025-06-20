@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {View,Text,Image,StyleSheet,TouchableOpacity,SafeAreaView,Platform,KeyboardAvoidingView,ScrollView,Linking,Animated,Dimensions} from 'react-native';
+import {View,Text,Image,StyleSheet,TouchableOpacity,Platform,ScrollView,Linking,Animated,Dimensions} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const image1Url = "https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg";
-const image2Url = "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png";
+const image1Url = '../../assets/images/trevo.jpg';
+const image2Url = '../../assets/images/mente.png';
 
 const image = [
-  require('../../assets/images/f1.png'),
-  require('../../assets/images/f2.png'),
-  require('../../assets/images/f3.png'),
-  require('../../assets/images/f4.png'),
+  require('../../assets/images/psicologia01.png'),
+  require('../../assets/images/psicologia02.jpeg'),
+  require('../../assets/images/psicologia03.png'),
 ];
 
 const frases = [
@@ -51,15 +50,16 @@ export default function TelaInicio01({ navigation }) {
       <ScrollView style={stylesweb.container} contentContainerStyle={{ minHeight: windowHeight, justifyContent: 'space-between' }}>
         {/* Cabeçalho */}
         <View style={stylesweb.header}>
-          <Image source={{ uri: image1Url }} style={stylesweb.mainImage} />
+          <Image source={require(image1Url)} style={stylesweb.mainImage} />
           <Text style={stylesweb.title}>Bem-vindo ao Espaço Gaya</Text>
-          <TouchableOpacity style={{ marginLeft: 750 }} onPress={() => navigation.navigate('IniciarSessao')}>
+          <TouchableOpacity style={{ marginLeft: 'auto', paddingRight: 5}} onPress={() => navigation.navigate('IniciarSessao')}>
             <LinearGradient colors={['#2E8B57', '#4CD964']} style={[stylesweb.button]}>
               <Text style={stylesweb.buttonText}>Iniciar Sessão</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
 
+        {/* Corpo */}
         <View style={stylesweb.menu}>
           <View style={{width: '50%'}}>
             {/* Descrição com imagem e texto sobreposto */}
@@ -77,7 +77,7 @@ export default function TelaInicio01({ navigation }) {
           <View style={{width: '50%'}}>
             {/* Imagem Secundária */}
             <View style={stylesweb.imageContainer}>
-             <Image source={{ uri: image2Url }} style={stylesweb.secondaryImage} />
+             <Image source={require(image2Url)} style={stylesweb.secondaryImage} />
             </View>
             {/* Contato */}
             <View style={stylesweb.contactContainer}>
@@ -202,9 +202,9 @@ const stylesweb = StyleSheet.create({
     fontWeight: 'bold',
   },
   footer: {
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: '#20613d',
-  height: 65,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#20613d',
+    height: 65,
 },
 });

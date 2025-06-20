@@ -2,7 +2,7 @@ import { getUrl } from "@/app/utils/url";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import axios from "axios";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Platform } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 
 type Consulta = {
   id: number;

@@ -81,7 +81,7 @@ export default function Paciente({ navigation, route }) {
                     }
                 ]}>
                     <Image
-                        source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }}
+                        source={require('../../assets/images/person.png')}
                         style={[styles.avatar, { alignSelf: isLargeScreen ? "center" : "flex-start" }]}
                     />
 

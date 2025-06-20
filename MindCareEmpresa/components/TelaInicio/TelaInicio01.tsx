@@ -1,9 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {View,Text,Image,StyleSheet,TouchableOpacity,SafeAreaView,Platform,KeyboardAvoidingView,ScrollView,Linking,Animated,Dimensions} from 'react-native';
+import React from 'react';
+import {View,Text,Image,StyleSheet,TouchableOpacity,SafeAreaView,KeyboardAvoidingView,Dimensions} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-const image1Url = "https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg";
-const image2Url = "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png";
 
 const frases = [
   "Cuidamos da sua saúde mental com atendimento online e seguro.",
@@ -15,14 +12,12 @@ const frases = [
 const windowHeight = Dimensions.get('window').height;
 
 export default function TelaInicio01({ navigation }) {
-  const [index, setIndex] = useState(0);
-  const fadeAnim = useRef(new Animated.Value(1)).current;
   return (
     <SafeAreaView style={stylesMobile.safeArea}>
       <KeyboardAvoidingView behavior="padding" style={stylesMobile.container}>
         <View style={stylesMobile.inner}>
           <Image
-            source={{ uri: 'https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg' }}
+            source={require('../../assets/images/trevo.jpg')}
             style={stylesMobile.logo}
           />
           <Text style={stylesMobile.welcome}>Bem-vindo ao</Text>

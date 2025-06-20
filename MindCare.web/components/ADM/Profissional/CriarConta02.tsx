@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
-import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList, Alert, Platform, SafeAreaView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList, Platform, SafeAreaView, Image } from 'react-native';
 import { getUrl } from '@/app/utils/url';
 import { LinearGradient } from 'expo-linear-gradient';
+import { CommonActions } from '@react-navigation/native';
 
 export default function CriarConta02p({ route, navigation }) {
   const { nome, telefone, email, password, idad, emailad, passwordad} = route.params;
@@ -58,8 +59,15 @@ export default function CriarConta02p({ route, navigation }) {
         console.error(error);
         alert('Falha ao enviar o SMS.');
       }
-      
-      navigation.navigate("TelaInicio02", {id: idad, email: emailad, password: passwordad });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{
+            name: 'TelaInicio02',
+            params: {id: idad, email: emailad, password: passwordad },
+          },],
+        })
+      );
       alert('Conta registrada com sucesso!')
     } catch (error) {
       alert("Erro ao cadastrar, Tente novamente mais tarde.");
@@ -81,7 +89,7 @@ export default function CriarConta02p({ route, navigation }) {
           <View style={stylesWeb.header}>
             <TouchableOpacity onPress={() => navigation.navigate("TelaInicio01")}>
               <Image
-                source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
+                source={require('../../../assets/images/mente.png')}
                 style={stylesWeb.logoHeader}
               />
             </TouchableOpacity>
@@ -96,7 +104,7 @@ export default function CriarConta02p({ route, navigation }) {
                 Preencha todos os campos para finalizar o cadastro do profissionais no MindCare.
               </Text>
               <Image
-                source={{ uri: "https://cdn-icons-png.flaticon.com/512/4088/4088981.png" }}
+                source={require('../../../assets/images/nuvem.png')}
                 style={stylesWeb.leftImage}
               />
             </View>
@@ -195,8 +203,8 @@ export default function CriarConta02p({ route, navigation }) {
 
             <Text style={{ fontSize: 11, color: 'red' }}>{espaco}</Text>
                 
-                <TouchableOpacity onPress={criar2}>
-                  <LinearGradient colors={["#2E8B57", "#4CD964"]} style={stylesWeb.button}>
+                <TouchableOpacity style={stylesWeb.button} onPress={criar2}>
+                  <LinearGradient colors={["#2E8B57", "#4CD964"]} style={[stylesWeb.button, {width: '100%'}]}>
                     <Text style={stylesWeb.buttonText}>Finalizar Cadastro</Text>
                   </LinearGradient>
                 </TouchableOpacity>
@@ -287,7 +295,7 @@ const stylesWeb = StyleSheet.create({
     color: "red",
   },
   button: {
-    width: "100%",
+    width: "70%",
     height: 50,
     borderRadius: 30,
     justifyContent: "center",

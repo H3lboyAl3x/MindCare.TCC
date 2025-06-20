@@ -5,7 +5,6 @@ import Conversa from './Conversa/Conversa';
 import Profissionais from './Profissionais/Profissionais';
 import Perfil from './Perfil/Perfil';
 import Consulta from './Consulta/Consulta';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const Tab = createBottomTabNavigator();
 

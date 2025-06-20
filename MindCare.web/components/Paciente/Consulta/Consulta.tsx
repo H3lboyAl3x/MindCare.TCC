@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import {View,Text,StyleSheet,FlatList,TouchableOpacity,Image,} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 
@@ -35,7 +27,6 @@ export default function Consulta({ navigation, route }) {
   const [selecionada, setSelecionada] = useState<Consulta | null>(null);
   const [modoAdiar, setModoAdiar] = useState(false);
   const [nome, setNome] = useState<string | null>(null);
-  const { width } = useWindowDimensions();
 
   const pegarData = () => {
     const agora = new Date();
@@ -116,6 +107,14 @@ export default function Consulta({ navigation, route }) {
       alert('A consulta ainda não está disponível, por favor entre no horário marcado, obrigado.');
     }
   };
+  const Apagarconsulta = async (consulta: Consulta) => {
+    try {
+      await axios.delete(`${getUrl()}/MindCare/API/consultas/${consulta.id}`);
+      buscarConsultas();
+    } catch (error) {
+      console.error("Erro ao cancelar consulta:", error);
+    }
+  };
 
   const renderAnalisarWeb = () => {
     if (!selecionada) {
@@ -146,10 +145,7 @@ export default function Consulta({ navigation, route }) {
     return (
       <View style={{ flex: 1, backgroundColor: "#4CD964", padding: 20 }}>
         <Image
-          source={{
-            uri: "https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg",
-          }}
-          style={styles.logo}
+          source={require('../../../assets/images/trevo.jpg')} style={styles.logo}
         />
         <Text style={[styles.consultaText, { backgroundColor: '#2a8c26', textAlign: 'center', marginTop: 40 }]}>
           Data: {formattedDate}     |     Hora: {formattedTime}
@@ -165,6 +161,12 @@ export default function Consulta({ navigation, route }) {
             <Text style={[styles.buttonText, { color: '#4CD964' }]}>Entrar</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+            style={[styles.botao, { backgroundColor: '#ff0000', marginTop: 5}]}
+            onPress={() => Apagarconsulta(selecionada)}
+          >
+            <Text style={[styles.buttonText, { color: '#fff' }]}>Cancelar</Text>
+          </TouchableOpacity>
       </View>
     );
   };
@@ -174,9 +176,7 @@ export default function Consulta({ navigation, route }) {
       {consultas.length === 0 ? (
         <View>
           <Image
-            source={{
-              uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png",
-            }}
+            source={require('../../../assets/images/mente.png')}
             style={styles.logo}
           />
           <Text style={{ textAlign: "center", marginTop: 30, color: "#000" }}>

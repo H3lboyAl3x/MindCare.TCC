@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 type Consulta = {
   id: number;
@@ -14,19 +13,9 @@ type Consulta = {
   link: string;
 };
 
-type AdiarProps = {
-  selecionada: Consulta;
-  idp: number;
-  setModoAdiar: (v: boolean) => void;
-  buscarConsultas: () => void;
-  setSelecionada: (consulta: Consulta) => void;
-};
-
 export default function Progresso({ navigation, route }) {
   const { idp } = route.params;
   const [consultas, setConsultas] = useState<Consulta[]>([]);
-  const [selecionada, setSelecionada] = useState<Consulta | null>(null);
-  const [modoAdiar, setModoAdiar] = useState(false);
   const [nome, setNome] = useState<string | null>(null);
 
   const pegarData = () => {
@@ -83,7 +72,6 @@ export default function Progresso({ navigation, route }) {
       const consultaMaisProxima = consultas.reduce((maisProxima, atual) =>
         new Date(atual.data) < new Date(maisProxima.data) ? atual : maisProxima
       );
-      setSelecionada(consultaMaisProxima);
       pegarpaciente(consultaMaisProxima);
     }
   }, [consultas]);
@@ -107,9 +95,7 @@ export default function Progresso({ navigation, route }) {
       {consultas.length === 0 ? (
         <View>
           <Image
-            source={{
-              uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png",
-            }}
+            source={require('../../assets/images/mente.png')}
             style={styles.logo}
           />
           <Text style={{ textAlign: "center", marginTop: 30, color: "#000" }}>

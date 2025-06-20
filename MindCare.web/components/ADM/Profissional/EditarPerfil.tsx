@@ -2,10 +2,10 @@ import { getUrl } from "@/app/utils/url";
 import axios from "axios";
 import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, KeyboardAvoidingView, ScrollView, Image, Platform, Modal, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Image, Platform, Modal, FlatList } from "react-native";
 
 export default function EditarPerfilp({ navigation, route }) {
-  const { ide, idpe, nomee, telefonee, emaile, passworde, datanascimentoe, generoe, espe, expe } = route.params;
+  const { ide, idpe, nomee, telefonee, emaile, datanascimentoe, generoe, espe, expe } = route.params;
   const [Nome, setnome] = useState(nomee);
   const [Telefone, settelefone] = useState(telefonee);
   const [Email, setemail] = useState(emaile);
@@ -20,7 +20,6 @@ export default function EditarPerfilp({ navigation, route }) {
   const genders = ['Masculino', 'Feminino', 'Não incluir'];
   const experent = ['1', '2', '3', '4', '5'];
   const work = ['Psicologia clínica', 'Psicologia Educacional', 'Terapeuta holístico', 'Terapeuta de Renascimento'];
-  const minimumDate = new Date(1900, 0, 1);
   const maximumDate = new Date();
   maximumDate.setFullYear(maximumDate.getFullYear() - 18);
 
@@ -28,45 +27,26 @@ export default function EditarPerfilp({ navigation, route }) {
     if (!datanascimento) return;
     const formattedDate = datanascimento.toISOString().split('T')[0];
     try {
-      const response = await axios.put(`${getUrl()}/MindCare/API/users/${ide}`, {
+      await axios.put(`${getUrl()}/MindCare/API/users/${ide}`, {
         nome: Nome.trim() || nomee,
         email: Email.trim() || emaile,
         telefone: Telefone.trim() || telefonee,
         datanascimento: formattedDate,
-        passworde: passworde,
         genero: genero,
       });
-      const response1 = await axios.put(`${getUrl()}/MindCare/API/profissionais/${idpe}`, {
+      await axios.put(`${getUrl()}/MindCare/API/profissionais/${idpe}`, {
         iduser: ide,
         tempoexpecialidade: especialidade,
       });
       const areapro = await axios.get(`${getUrl()}/MindCare/API/areaprof/idpro/${idpe}`);
-      const response3 = await axios.put(`${getUrl()}/MindCare/API/areatrabalho/${areapro.data.idarea}`, {
+      await axios.put(`${getUrl()}/MindCare/API/areatrabalho/${areapro.data.idarea}`, {
         area: especialidade,
       });
-
-      const user = response.data;
-      const profissional = response1.data;
-      const area = response3.data;
-
-      navigation.navigate("Navegacao2", {
-        id: user.id,
-        idp: idpe,
-        nome: user.nome,
-        telefone: user.telefone,
-        email: user.email,
-        password: user.password,
-        datanascimento: formattedDate,
-        genero: user.genero,
-        espe: area.area,
-        expe: profissional.tempoexperiencia,
-      });
+      navigation.goBack();
     } catch (error) {
       console.error("Erro ao Editar", "Tente novamente mais tarde. " + error);
     }
   };
-
- // ... [mantém o restante igual até o retorno do SafeAreaView para web]
 
 if (Platform.OS === 'web') {
   return (
@@ -74,7 +54,7 @@ if (Platform.OS === 'web') {
       {/* Cabeçalho */}
       <View style={stylesWeb.header}>
         <Image
-          source={{ uri: "https://aebo.pt/wp-content/uploads/2024/05/spo-300x300.png" }}
+          source={require('../../../assets/images/mente.png')}
           style={stylesWeb.logoHeader}
         />
       </View>
@@ -85,7 +65,7 @@ if (Platform.OS === 'web') {
         <View style={stylesWeb.left}>
           <Text style={stylesWeb.title}>Editar Conta</Text>
           <Image
-            source={{ uri: "https://cdn-icons-png.flaticon.com/512/4088/4088981.png" }}
+            source={require('../../../assets/images/nuvem.png')}
             style={stylesWeb.leftImage}
           />
         </View>

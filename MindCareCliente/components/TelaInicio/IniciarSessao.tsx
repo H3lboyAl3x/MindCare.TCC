@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  Platform,
-  KeyboardAvoidingView,
-  Image,
-} from "react-native";
+import {View,Text,TextInput,StyleSheet,TouchableOpacity,SafeAreaView,KeyboardAvoidingView,Image} from "react-native";
 import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 import { getUrl } from "@/app/utils/url";
@@ -65,9 +55,7 @@ export default function IniciarSessao({ navigation }) {
       <KeyboardAvoidingView behavior="padding" style={stylesMobile.container}>
         <View style={stylesMobile.inner}>
           <Image
-            source={{
-              uri: "https://img.freepik.com/vetores-premium/trevo-com-quatro-folhas-isoladas-no-fundo-branco-conceito-da-sorte-no-estilo-cartoon-realista_302536-46.jpg"
-            }}
+            source={require('../../assets/images/trevo.jpg')}
             style={stylesMobile.logo}
           />
           <Text style={stylesMobile.welcomeText}>Iniciar Sessão</Text>

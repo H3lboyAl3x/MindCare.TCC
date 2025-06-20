@@ -1,8 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator, Image
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import {View, Text, StyleSheet, FlatList, TouchableOpacity,ActivityIndicator, Image} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 
@@ -24,7 +21,6 @@ export default function Profissionais({ navigation, route }) {
   const [tempex, settempex] = useState(Number);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [sos, setsos] = useState('');
   
 
   const Listafuncionario = async () => {
@@ -77,10 +73,6 @@ export default function Profissionais({ navigation, route }) {
             const areapResponse = await axios.get<AreaProf>(`${getUrl()}/MindCare/API/areaprof/idpro/${proResponse.data.id}`);
             const AreaP = areapResponse.data;
             const areatResponse = await axios.get<AreaTrabalho>(`${getUrl()}/MindCare/API/areatrabalho/${AreaP.idarea}`);
-            if(!Numero.idprof)
-            {
-              setsos('Nenhum profissional acompanham voce ainda.');
-            }
             return {
               id: Numero.idprof,
               nome: userResponse.data.nome,
@@ -165,7 +157,7 @@ export default function Profissionais({ navigation, route }) {
                   areaTrabalho: item.areaT,
                 })}>
                   <View style={{flexDirection: 'row'}}>
-                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+                    <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
                     <View>
                       <Text style={[styles.nome]}>{item.nome}</Text>
                       <Text style={[styles.nome]}>Área: {item.areaT}</Text>

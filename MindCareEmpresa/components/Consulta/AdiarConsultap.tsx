@@ -1,9 +1,8 @@
 import { getUrl } from "@/app/utils/url";
-import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import axios from "axios";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Platform } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 
 export default function AdiarConsultap({ navigation, route }) {
     const {idConsulta, dataConsulta, horaConsulta, idprof, idp, statusConsulta} = route.params;
@@ -27,7 +26,7 @@ export default function AdiarConsultap({ navigation, route }) {
         const formattedDate = datamarcacao.toISOString().split("T")[0];
         const formattedTime = tempomarcacao.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false });
         try {
-            const response = await axios.put(`${getUrl()}/MindCare/API/consultas/${idConsulta}`, {
+            await axios.put(`${getUrl()}/MindCare/API/consultas/${idConsulta}`, {
                 data: formattedDate,
                 hora: formattedTime,
                 idpaci: idp,

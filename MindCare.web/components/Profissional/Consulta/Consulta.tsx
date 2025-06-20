@@ -1,9 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator, Platform, ScrollView,
-  Animated
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import {View, Text, StyleSheet, TouchableOpacity,ActivityIndicator, Platform, ScrollView,Image} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 
@@ -89,9 +85,10 @@ export default function Consulta({ navigation, route }) {
       onPress={() => navigation.navigate("Progresso", {
         idp: item.id,
       })}>
-      <Text style={styles.nome}>{item.nome}</Text>
-      <Text style={styles.nome}>Email: {item.email}</Text>
-    <Text style={styles.nome}>Telefone: {item.telefone}</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image source={require('../../../assets/images/person.png')} style={styles.avatar}/>
+            <Text style={styles.nome}>{item.nome}</Text>
+        </View>
     </TouchableOpacity>
   );
 
@@ -165,6 +162,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 5,
     marginHorizontal: 5,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+    backgroundColor: "#e7fbe6",
+    marginRight: 5
   },
   nome: {
     fontSize: 12,

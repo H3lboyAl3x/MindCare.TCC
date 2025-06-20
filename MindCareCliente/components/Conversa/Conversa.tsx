@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {View,Text,StyleSheet,FlatList,TouchableOpacity,Platform,useWindowDimensions,Image, Alert,} from "react-native";
+import {View,Text,StyleSheet,FlatList,TouchableOpacity,Image, Alert,} from "react-native";
 import axios from "axios";
 import { getUrl } from "@/app/utils/url";
 import { CommonActions } from "@react-navigation/native";
@@ -14,14 +14,12 @@ interface ConversaItem {
 export default function Conversa({ navigation, route }) {
   const { id, nome, telefone, email, password, datanascimento, genero } = route.params;
   const [conversas, setConversas] = useState<ConversaItem[]>([]);
-  const [sos, setSos] = useState('');
 
   const fetchConversas = async () => {
     try {
       const res = await axios.get(`${getUrl()}/MindCare/API/chats/idpaci/${id}`);
       const chats = res.data;
       if (!chats || chats.length === 0) {
-        setSos("Nenhuma conversa encontrada. Acesse a aba 'Profissionais' para iniciar uma nova interação.");
         setConversas([]);
         return;
       }
@@ -112,11 +110,11 @@ export default function Conversa({ navigation, route }) {
                 );
               }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" }} style={styles.avatar}/>
+                  <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
                   <View>
-                    <Text style={[styles.textp, { color: "#20613d", fontSize: 19 }]}>{item.nome}</Text>
-                    <Text style={[styles.textp, { color: "#c0c0c0" }]}>{item.ultimaMensagem}</Text>
-                    <Text style={[styles.textp, { color: "#c0c0c0", fontSize: 12}]}>{item.hora}</Text>
+                    <Text style={[styles.textp, { color: "#fff", fontSize: 19 }]}>{item.nome}</Text>
+                    <Text style={[styles.textp, { color: "#E4E4E5" }]}>{item.ultimaMensagem}</Text>
+                    <Text style={[styles.textp, { color: "#E4E4E5", fontSize: 12}]}>{item.hora}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -154,21 +152,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   pessoa: {
-    backgroundColor: "#fff",
+    backgroundColor: "#4CD964",
     height: 65,
     borderRadius: 20,
     marginHorizontal: 5,
     alignSelf: 'center',
-    width: '98%',
+    width: '97%',
     marginTop: 5,
-    borderBottomWidth: 1
   },
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 70,
     backgroundColor: "#e7fbe6",
-    marginRight: 5
+    marginHorizontal: 5
   },
   textp: {
     fontSize: 15,
