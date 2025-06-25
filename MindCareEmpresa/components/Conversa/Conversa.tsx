@@ -134,7 +134,7 @@ export default function Conversa({ navigation, route }) {
             Sem conversas disponíveis. Aguarde um paciente entrar em contacto, para começar com o serviço.
           </Text>
           <TouchableOpacity onPress={profissional}>
-            <Text style={{ color: '#20613d', fontWeight: 'bold' }}>Ir para a aba Área e Profissionais</Text>
+            <Text style={{ color: '#20613d', fontWeight: 'bold' }}>Ir para a aba Área Pacientes</Text>
           </TouchableOpacity>
         </View>
       )}

@@ -58,7 +58,7 @@ export default function PP({ route, navigation }) {
         </View>
       );
     }else{
-      <>
+      return (
         <FlatList
           style={styles.Inf}
           data={consultas}
@@ -66,14 +66,13 @@ export default function PP({ route, navigation }) {
           renderItem={({ item }) => (
             <View style={styles.card}>
                 <Text style={[styles.consultaText, { fontWeight: "bold", fontSize: 16 }]}>Consulta</Text>
-                <Text style={[styles.consultaText, { fontWeight: "bold", fontSize: 13 }]}>
-                  Data: {item.data ? item.data.toString().split("T")[0] : ""}                </Text>
+                <Text style={[styles.consultaText, { fontWeight: "bold", fontSize: 13 }]}>Data: {item.data ? item.data.toString().split("T")[0] : ""}</Text>
                 <Text style={[styles.consultaText, { fontWeight: "bold", fontSize: 13 }]}>Hora: {item.hora.slice(0, 5)}</Text>
                 <Text style={[styles.consultaText, { fontWeight: "bold", fontSize: 13 }]}>Status: {item.status}</Text>
             </View>
           )}
         />
-      </>
+      );
     }
   };  
 

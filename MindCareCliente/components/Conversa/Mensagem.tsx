@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, FlatList, StyleSheet, Image, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getUrl } from "@/app/utils/url";
 
@@ -81,7 +81,7 @@ export default function Mensagem({ route, navigation }) {
     }
   };
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={'height'}>
+    <KeyboardAvoidingView style={styles.container} behavior= {Platform.OS == 'ios' ? 'padding' : 'height'}>
       <View style={styles.titulo}>
         <Ionicons style={{marginLeft: 5}} name="arrow-back-outline" size={25} color={"#20613d"} onPress={() => navigation.goBack()}/>
         <Image source={require('../../assets/images/person.png')} style={styles.avatar}/>
