@@ -1,6 +1,8 @@
 {
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "typescript": "~5.8.3",
+    "@types/react": "~19.0.10"
   },
   "name": "mindcare.tcc",
   "version": "1.0.0",
