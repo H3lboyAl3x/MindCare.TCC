@@ -126,7 +126,7 @@ export default function ExibirInformacao({ navigation, route }) {
                                     navigation.dispatch(
                                         CommonActions.reset({
                                             index: 0,
-                                            routes: [{name: 'IniciarSessao'},
+                                            routes: [{name: 'TelaInicio01'},
                                             ],
                                         })
                                     )
